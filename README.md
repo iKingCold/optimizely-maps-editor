@@ -21,6 +21,7 @@ MusicFestival is a sample project that uses the Content Delivery API in a headle
 # Option 2. Get started through the repository
 1. Clone the repository
 1. Run the `create-database.bat` to create an empty database
+    - _OR_ attach a database of your choice
 1. Open the solution and start the `DemoSite` project 
 1. Create an admin user in the Optimizely UI: http://localhost:8081/Util/Login
 1. Create a new page in the Optimizely UI Edit-panel
