@@ -1,10 +1,10 @@
 # Open Maps Editor for Optimizely
-Editor for setting coordinates in Optimizely CMS through map of choice with Leaflet.js.
+Editor for setting coordinates in Optimizely CMS through map of choice with Leaflet.js.<br/>
 The editor uses OpenStreetMaps by default. 
 
 ## Summary
 The solution consists of two projects.
-`OpenMapsEditor` contains the Map Editor add-on / plugin.
+`OpenMapsEditor` contains the Map Editor add-on / plugin.<br/>
 `DemoSite` contains a demo website for testing the Map Editor.
 
 The project has been tested with **Optimizely Alloy**, **Optimizely Decoupled MusicFestival** & **Optimizely Empty Project**.
