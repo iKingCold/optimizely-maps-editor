@@ -32,7 +32,7 @@ namespace DemoSite
             {
                 AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(_webHostingEnvironment.ContentRootPath, "App_Data"));
 
-                // Configure site for add-ondevelopment, meaning files for the Google Maps Editor add-on will be loaded directly from its project folder.
+                // Configure site for add-on development, meaning files for the Maps Editor add-on will be loaded directly from its project folder.
                 var uiSolutionFolder = Path.Combine(_webHostingEnvironment.ContentRootPath, @"..\");
 
                 services.Configure<CompositeFileProviderOptions>(c =>

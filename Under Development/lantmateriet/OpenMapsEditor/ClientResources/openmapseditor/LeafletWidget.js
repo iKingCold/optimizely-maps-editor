@@ -9,7 +9,7 @@ define([
     "https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.15.0/proj4.min.js", //PROJ4 coordinate-conversion.
     "xstyle/css!./WidgetTemplate.css", //Widget CSS
     "xstyle/css!./leaflet/leaflet.css", //Leaflet CSS
-    "openmapseditor./leaflet/leaflet.js"
+    "openmapseditor/leaflet/leaflet" //Load the local Leaflet script.    
 ], function (_ValueRequiredMixin, on, declare, request, _Widget, _TemplatedMixin, _Template, proj4) {
 
     return declare("openmapseditor.LeafletWidget", [_ValueRequiredMixin, _Widget, _TemplatedMixin], {
