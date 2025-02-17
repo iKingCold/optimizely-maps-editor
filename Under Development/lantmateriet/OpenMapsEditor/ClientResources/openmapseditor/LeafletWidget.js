@@ -15,6 +15,7 @@ define([
     return declare("openmapseditor.LeafletWidget", [_ValueRequiredMixin, _Widget, _TemplatedMixin], {
 
         templateString: _Template, //HtmlTemplate in the Leaflet folder.
+        intermediateChanges: true,
 
         postCreate: function () {
             this.inherited(arguments);
@@ -49,9 +50,18 @@ define([
             on(this.searchForm, "submit", (e) => {
                 e.preventDefault(); //Prevent default behavior (Refresh)
             })
+
+            if (this.searchPrefix) {
+                this.prefixInput.value = this.searchPrefix;
+            }
         },
 
         _searchAddress: function (address) {
+            //Append search prefix to the address if it exists.
+            if (this.searchPrefix) {
+                address = `${this.searchPrefix} ${address}`;
+            }
+
             //Calls the SearchAddress API.
             //The encode URI - component makes sure the url isn't broken with special characters or blank spaces, etc.
             fetch(`${this.apiSearchUrl}?address=${encodeURIComponent(address)}`)

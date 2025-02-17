@@ -4,6 +4,7 @@ namespace MusicFestival.Backend.Models
     {
         public string ApiTileUrl { get; set; }
         public string ApiSearchUrl { get; set; }
+        public string SearchPrefix { get; set; }
         public string Identifier { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }

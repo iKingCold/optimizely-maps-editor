@@ -1,8 +1,10 @@
 <div>
     <form class="search-container" data-dojo-attach-point="searchForm">
+        <input type="text" id="prefix-input" placeholder="Prefix..."
+               data-dojo-type="dijit/form/TextBox" data-dojo-attach-point="prefixInput" disabled/>
         <input type="text" class="search-input" placeholder="Search address..."
-               data-dojo-type="dijit/form/TextBox" data-dojo-attach-point="searchbox,focusNode" />
-        <button class="search-button epi-iconSearch" data-dojo-type="dijit/form/Button" data-dojo-attach-point="searchButton,focusNode"></button>
+               data-dojo-type="dijit/form/TextBox" data-dojo-attach-point="searchbox" />
+        <button class="search-button epi-iconSearch" data-dojo-type="dijit/form/Button" data-dojo-attach-point="searchButton"></button>
     </form>
 
     <div class="map-container">

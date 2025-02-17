@@ -41,11 +41,19 @@
     width: 480px;
 }
 
-.search-input {
+.search-input{
     flex-grow: 1;
     border-radius: 6px 0 0 6px;
     padding: 8.5px 12px;
-    border: 1px solid #ccc;
+}
+
+#prefix-input {
+    border-radius: 6px;
+    padding: 8.5px 12px;
+    margin-right: 5px;
+    width: 5rem;
+    background-color: #ebebeb;
+    color: #7d7777;
 }
 
 .search-button {

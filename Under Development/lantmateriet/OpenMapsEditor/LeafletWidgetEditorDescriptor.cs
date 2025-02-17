@@ -10,6 +10,7 @@ namespace OpenMapsEditor
     {
         public string ApiTileUrl { get; set; } = ServiceCollectionExtensions.ApiTileUrl;
         public string ApiSearchUrl { get; set; } = ServiceCollectionExtensions.ApiSearchUrl;
+        public string? SearchPrefix { get; set; } = ServiceCollectionExtensions.SearchPrefix;
         public double DefaultLatitude { get; set; } = ServiceCollectionExtensions.DefaultLatitude;
         public double DefaultLongitude { get; set; } = ServiceCollectionExtensions.DefaultLongitude;
         public int DefaultZoom { get; set; } = ServiceCollectionExtensions.DefaultZoom;
@@ -20,6 +21,7 @@ namespace OpenMapsEditor
         {
             ClientEditingClass = "openmapseditor/LeafletWidget";
 
+            metadata.EditorConfiguration.Add("searchPrefix", SearchPrefix);
             metadata.EditorConfiguration.Add("apiTileUrl", ApiTileUrl);
             metadata.EditorConfiguration.Add("apiSearchUrl", ApiSearchUrl);
             metadata.EditorConfiguration.Add("defaultLatitude", DefaultLatitude);

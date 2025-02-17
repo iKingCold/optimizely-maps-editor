@@ -56,8 +56,9 @@ namespace DemoSite
 
             var apiSettings = _configuration.GetSection("ApiSettings").Get<ApiSettings>();
 
-            services.AddOpenMapsEditor(apiSettings.ApiTileUrl, apiSettings.ApiSearchUrl, apiSettings.Identifier, apiSettings.Username, apiSettings.Password, 
-                apiSettings.AuthType, apiSettings.DefaultLatitude, apiSettings.DefaultLongitude, apiSettings.DefaultZoom, apiSettings.MaxZoom, apiSettings.MinZoom);
+            services.AddOpenMapsEditor(apiSettings.ApiTileUrl, apiSettings.ApiSearchUrl, apiSettings.SearchPrefix, apiSettings.Identifier, 
+                apiSettings.Username, apiSettings.Password, apiSettings.AuthType, apiSettings.DefaultLatitude, apiSettings.DefaultLongitude, 
+                apiSettings.DefaultZoom, apiSettings.MaxZoom, apiSettings.MinZoom);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -15,6 +15,7 @@ namespace OpenMapsEditor
         /// </summary>
         public static string? ApiTileUrl { get; set; }
         public static string? ApiSearchUrl { get; set; }
+        public static string? SearchPrefix { get; set; }
         public static string? Identifier { get; set; }
         public static string? Username { get; set; }
         public static string? Password { get; set; }
@@ -32,6 +33,7 @@ namespace OpenMapsEditor
         /// </summary>
         /// <param name="apiTileUrl">API Url for fetching map tiles</param>
         /// <param name="apiSearchUrl">API Url for searching for coordinates on specified address</param>
+        /// <param name="searchPrefix">Prefix for specifying search address results to a defined county, can be left empty</param>
         /// <param name="identifier">Map type identifier</param>
         /// <param name="username">Maps Username (If required)</param>
         /// <param name="password">Maps Password (If required)</param>
@@ -42,11 +44,13 @@ namespace OpenMapsEditor
         /// <param name="maxZoom">Maximum zoom restriction for the map</param>
         /// <param name="minZoom">Minimum zoom restriction for the map</param>
         /// <param name="services"></param>
-        public static IServiceCollection AddOpenMapsEditor(this IServiceCollection services, string apiTileUrl, string apiSearchUrl, string identifier,
-            string username, string password, string authType, double defaultLatitude, double defaultLongitude, int defaultZoom, int maxZoom, int minZoom)
+        public static IServiceCollection AddOpenMapsEditor(this IServiceCollection services, string apiTileUrl, string apiSearchUrl, string searchPrefix,
+            string identifier, string username, string password, string authType, double defaultLatitude, double defaultLongitude, int defaultZoom, 
+            int maxZoom, int minZoom)
         {
             ApiTileUrl = apiTileUrl;
             ApiSearchUrl = apiSearchUrl;
+            SearchPrefix = searchPrefix;
             Identifier = identifier;
             Username = username;
             Password = password;
