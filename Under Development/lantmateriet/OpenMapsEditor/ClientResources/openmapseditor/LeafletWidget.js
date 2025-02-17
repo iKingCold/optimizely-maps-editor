@@ -40,11 +40,12 @@ define([
         },
 
         _setupSearch: function () {
-            on(this.searchbox, "change", (e) => {
+            on(this.searchbox, 'keyup', (e) => {
                 const address = e.target.value.trim();
-                if (address) {
-                    this._searchAddress(address);
-                }
+                console.log(address);
+                //if (address) {
+                //    this._searchAddress(address);
+                //}
             });
 
             on(this.searchForm, "submit", (e) => {
