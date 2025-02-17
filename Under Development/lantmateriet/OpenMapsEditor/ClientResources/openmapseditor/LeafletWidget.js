@@ -2,15 +2,15 @@ define([
     "epi/shell/widget/_ValueRequiredMixin", //Required for Optimizely to update the editor
     "dojo/on", //Event handler for DOM nodes
     "dojo/_base/declare", //Adds support to define Dojo classes for OOP
-    "dojo/request",
     "dijit/_WidgetBase", //Required to instantiate a Dojo Widget
     "dijit/_TemplatedMixin", //Adds support for creating the DOM from a HTML Template
     "dojo/text!./WidgetTemplate.html", //HTML Template
-    "https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.15.0/proj4.min.js", //PROJ4 coordinate-conversion.
+    "openmapseditor/proj/proj4", //Load the local PROJ4 coordinate-conversion script
+    "dojo/_base/event", //Handle DOM Events
     "xstyle/css!./WidgetTemplate.css", //Widget CSS
     "xstyle/css!./leaflet/leaflet.css", //Leaflet CSS
-    "openmapseditor/leaflet/leaflet" //Load the local Leaflet script.    
-], function (_ValueRequiredMixin, on, declare, request, _Widget, _TemplatedMixin, _Template, proj4) {
+    "openmapseditor/leaflet/leaflet" //Load the local Leaflet script.   
+], function (_ValueRequiredMixin, on, declare, _Widget, _TemplatedMixin, _Template, proj4) {
 
     return declare("openmapseditor.LeafletWidget", [_ValueRequiredMixin, _Widget, _TemplatedMixin], {
 
@@ -45,34 +45,38 @@ define([
                     this._searchAddress(address);
                 }
             });
+
+            on(this.searchForm, "submit", (e) => {
+                e.preventDefault(); //Prevent default behavior (Refresh)
+            })
         },
 
         _searchAddress: function (address) {
-            // Calls the SearchAddress API.
+            //Calls the SearchAddress API.
             //The encode URI - component makes sure the url isn't broken with special characters or blank spaces, etc.
-            request.get(`${this.apiSearchUrl}?address=${encodeURIComponent(address)}`, {
-                handleAs: "json"
-            }).then((response) => {
-                if (response.coordinatesData) {
+            fetch(`${this.apiSearchUrl}?address=${encodeURIComponent(address)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.coordinatesData) {
 
-                    const lngX = response.coordinatesData.longitude;
-                    const latY = response.coordinatesData.latitude;
+                        const lngX = data.coordinatesData.longitude;
+                        const latY = data.coordinatesData.latitude;
 
-                    //Converting the coordinates
-                    proj4.defs("EPSG:3006", "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs");
-                    let convertedCoordinates = proj4('EPSG:3006', 'WGS84', [lngX, latY])
+                        //Converting the coordinates
+                        proj4.defs("EPSG:3006", "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs");
+                        let convertedCoordinates = proj4('EPSG:3006', 'WGS84', [lngX, latY])
 
-                    const lng = convertedCoordinates[0];
-                    const lat = convertedCoordinates[1];
+                        const lng = convertedCoordinates[0];
+                        const lat = convertedCoordinates[1];
 
-                    this.set("value", { latitude: lat, longitude: lng });
-                } else {
-                    alert("No address or coordinates found");
-                }
-            }, (error) => {
-                console.error("Error with api-call: ", error);
-                alert("could not get address (and coordinates)");
-            });
+                        this.set("value", { latitude: lat, longitude: lng });
+                    } else {
+                        alert("No address or coordinates found");
+                    }
+                }, (error) => {
+                    console.error("Error with api-call: ", error);
+                    alert("could not get address (and coordinates)");
+                });
         },
 
         _onMapClick: function (event) {
