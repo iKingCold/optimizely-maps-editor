@@ -3,6 +3,7 @@ namespace MusicFestival.Backend.Models
     public class ApiSettings
     {
         public string ApiTileUrl { get; set; }
+        public string ApiAutoCompleteUrl {  get; set; }
         public string ApiSearchUrl { get; set; }
         public string SearchPrefix { get; set; }
         public string Identifier { get; set; }

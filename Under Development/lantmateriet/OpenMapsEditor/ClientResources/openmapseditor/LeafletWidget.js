@@ -23,6 +23,18 @@ define([
             this._initMap(); // Initialize the map once Leaflet is loaded
         },
 
+        _debounce: function (func, delay) {
+            let timeout; //Initialize a time
+
+            return function () { //Return a new function that will execute the passed param function
+                clearTimeout(timeout); //Clear previous existing timers
+
+                timeout = setTimeout(() => { //Start the new timer
+                    func(); //Execute function after the timer reaches the param delay value
+                }, delay);
+            };
+        },
+
         _setValueAttr: function (value) { //Gets called on pageLoad and when this.set is called (On pageLoad the value is received from the CMS).
             if (value.latitude && value.latitude) {
                 //Update the map & marker with the parsed coordinates 
@@ -40,13 +52,8 @@ define([
         },
 
         _setupSearch: function () {
-            on(this.searchbox, 'keyup', (e) => {
-                const address = e.target.value.trim();
-                console.log(address);
-                //if (address) {
-                //    this._searchAddress(address);
-                //}
-            });
+            //On searchbox keyup, call debounce for searchAddress method with 300ms delay.
+            on(this.searchbox, 'keyup', this._debounce(() => this._searchAutoComplete(this.searchbox.value), 300));
 
             on(this.searchForm, "submit", (e) => {
                 e.preventDefault(); //Prevent default behavior (Refresh)
@@ -57,17 +64,60 @@ define([
             }
         },
 
-        _searchAddress: function (address) {
-            //Append search prefix to the address if it exists.
+        _searchAutoComplete: function (address) {
+            if (!address) {
+                this.resultDropdown.classList.add("hidden");
+                return;
+            }
+
             if (this.searchPrefix) {
                 address = `${this.searchPrefix} ${address}`;
             }
 
+            fetch(`${this.apiAutoCompleteUrl}?address=${encodeURIComponent(address)}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    this._updateDropdown(data);
+                });
+        },
+
+        _updateDropdown: function (results) {
+            // Remove all existing children
+            while (this.resultDropdown.firstChild) {
+                this.resultDropdown.removeChild(this.resultDropdown.firstChild);
+            }
+
+            if (results.length === 0) {
+                this.resultDropdown.classList.add("hidden");
+                return;
+            }
+
+            results.forEach(result => {
+                const cleanedResult = result.replace(`${this.searchPrefix} `, "");
+
+                const li = document.createElement("li");
+                li.setAttribute("tabindex", "0");
+                li.textContent = cleanedResult;
+
+                li.addEventListener("click", () => {
+                    this.searchbox.value = cleanedResult;
+                    this.resultDropdown.classList.add("hidden");
+                    this._searchAddress(result);
+                });
+                this.resultDropdown.appendChild(li);
+            });
+
+            this.resultDropdown.classList.remove("hidden"); // Show dropdown
+        },
+
+        _searchAddress: function (address) {
             //Calls the SearchAddress API.
             //The encode URI - component makes sure the url isn't broken with special characters or blank spaces, etc.
             fetch(`${this.apiSearchUrl}?address=${encodeURIComponent(address)}`)
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data);
                     if (data.coordinatesData) {
 
                         const lngX = data.coordinatesData.longitude;

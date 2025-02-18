@@ -56,7 +56,7 @@ namespace DemoSite
 
             var apiSettings = _configuration.GetSection("ApiSettings").Get<ApiSettings>();
 
-            services.AddOpenMapsEditor(apiSettings.ApiTileUrl, apiSettings.ApiSearchUrl, apiSettings.SearchPrefix, apiSettings.Identifier, 
+            services.AddOpenMapsEditor(apiSettings.ApiTileUrl, apiSettings.ApiAutoCompleteUrl, apiSettings.ApiSearchUrl, apiSettings.SearchPrefix, apiSettings.Identifier, 
                 apiSettings.Username, apiSettings.Password, apiSettings.AuthType, apiSettings.DefaultLatitude, apiSettings.DefaultLongitude, 
                 apiSettings.DefaultZoom, apiSettings.MaxZoom, apiSettings.MinZoom);
         }
@@ -80,6 +80,10 @@ namespace DemoSite
                 endpoints.MapControllerRoute(
                     name: "GetTileImage",
                     pattern: "{controller=Map}/{action=GetTileImage}/");
+
+                endpoints.MapControllerRoute(
+                    name: "SearchAutoComplete",
+                    pattern: "{controller=Map}/{action=SearchAutoComplete}/");
 
                 endpoints.MapControllerRoute(
                     name: "SearchAddress",

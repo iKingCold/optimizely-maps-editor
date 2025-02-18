@@ -5,6 +5,7 @@ using MusicFestival.Backend.Models;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Web;
 
 namespace DemoSite.Controllers
 {
@@ -50,17 +51,17 @@ namespace DemoSite.Controllers
         }
 
         [Authorize] //Only signed-in editors can access the endpoint
-        [HttpGet("SearchAddress")]
-        public async Task<IActionResult> SearchAddress(string address, string includeData = "basinformation")
+        [HttpGet("SearchAutoComplete")]
+        public async Task<IActionResult> SearchAutoComplete(string address)
         {
-
             if (string.IsNullOrWhiteSpace(address))
             {
                 return BadRequest("Enter something to search...");
             }
 
+            var uriAddress = HttpUtility.UrlEncode(address); //Endpoint decodes the address param, have to encode it again for correct formatting of whitespace etc.
             var authToken = Base64Encode($"{_settings.Username}:{_settings.Password}");
-            var searchUrl = $"https://api.lantmateriet.se/distribution/produkter/belagenhetsadress/v4.2/referens/fritext?adress={address}";
+            var searchUrl = $"https://api.lantmateriet.se/distribution/produkter/belagenhetsadress/v4.2/autocomplete/adress?adress={uriAddress}&maxHits=5";
 
             using (var httpClient = new HttpClient())
             {
@@ -80,10 +81,44 @@ namespace DemoSite.Controllers
                     var searchJson = await searchResponse.Content.ReadAsStringAsync();
                     var searchResultArray = JsonConvert.DeserializeObject<List<dynamic>>(searchJson);
 
-                    if (searchResultArray == null || searchResultArray.Count == 0)
+                    return Ok(searchResultArray);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+        }
+
+        [Authorize] //Only signed-in editors can access the endpoint
+        [HttpGet("SearchAddress")]
+        public async Task<IActionResult> SearchAddress(string address, string includeData = "basinformation")
+        {
+            if (string.IsNullOrWhiteSpace(address))
+            {
+                return BadRequest("Enter something to search...");
+            }
+
+            var authToken = Base64Encode($"{_settings.Username}:{_settings.Password}");
+            var searchUrl = $"https://api.lantmateriet.se/distribution/produkter/belagenhetsadress/v4.2/referens/fritext?adress={address}&maxHits=1";
+
+            using (var httpClient = new HttpClient())
+            {
+                try
+                {
+                    //Lägg på authorization
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(_settings.AuthType, authToken);
+
+                    var searchResponse = await httpClient.GetAsync(searchUrl);
+
+                    if (!searchResponse.IsSuccessStatusCode)
                     {
-                        return NotFound("No address found");
+                        return StatusCode((int)searchResponse.StatusCode, $"API-call failed: {searchResponse.ReasonPhrase}");
                     }
+
+                    //converts the response from json.
+                    var searchJson = await searchResponse.Content.ReadAsStringAsync();
+                    var searchResultArray = JsonConvert.DeserializeObject<List<dynamic>>(searchJson);
 
                     //Checks for an id
                     var searchResult = searchResultArray[0];
@@ -111,7 +146,6 @@ namespace DemoSite.Controllers
 
                     return Ok(new
                     {
-                        AddressData = searchResult,
                         CoordinatesData = new
                         {
                             longitude,

@@ -9,6 +9,7 @@ namespace OpenMapsEditor
     public class LeafletWidgetEditorDescriptor : EditorDescriptor
     {
         public string ApiTileUrl { get; set; } = ServiceCollectionExtensions.ApiTileUrl;
+        public string ApiAutoCompleteUrl { get; set; } = ServiceCollectionExtensions.ApiAutoCompleteUrl;
         public string ApiSearchUrl { get; set; } = ServiceCollectionExtensions.ApiSearchUrl;
         public string? SearchPrefix { get; set; } = ServiceCollectionExtensions.SearchPrefix;
         public double DefaultLatitude { get; set; } = ServiceCollectionExtensions.DefaultLatitude;
@@ -23,6 +24,7 @@ namespace OpenMapsEditor
 
             metadata.EditorConfiguration.Add("searchPrefix", SearchPrefix);
             metadata.EditorConfiguration.Add("apiTileUrl", ApiTileUrl);
+            metadata.EditorConfiguration.Add("apiAutoCompleteUrl", ApiAutoCompleteUrl);
             metadata.EditorConfiguration.Add("apiSearchUrl", ApiSearchUrl);
             metadata.EditorConfiguration.Add("defaultLatitude", DefaultLatitude);
             metadata.EditorConfiguration.Add("defaultLongitude", DefaultLongitude);
