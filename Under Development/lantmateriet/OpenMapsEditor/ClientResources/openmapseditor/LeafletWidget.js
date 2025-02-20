@@ -6,11 +6,12 @@ define([
     "dijit/_TemplatedMixin", //Adds support for creating the DOM from a HTML Template
     "dojo/text!./WidgetTemplate.html", //HTML Template
     "openmapseditor/proj/proj4", //Load the local PROJ4 coordinate-conversion script
+    "dojo/query", //Used to query for DOM-nodes, get all nodes of specified name or tag. 
     "dojo/_base/event", //Handle DOM Events
     "xstyle/css!./WidgetTemplate.css", //Widget CSS
     "xstyle/css!./leaflet/leaflet.css", //Leaflet CSS
     "openmapseditor/leaflet/leaflet" //Load the local Leaflet script.   
-], function (_ValueRequiredMixin, on, declare, _Widget, _TemplatedMixin, _Template, proj4) {
+], function (_ValueRequiredMixin, on, declare, _Widget, _TemplatedMixin, _Template, proj4, query) {
 
     return declare("openmapseditor.LeafletWidget", [_ValueRequiredMixin, _Widget, _TemplatedMixin], {
 
@@ -52,16 +53,36 @@ define([
         },
 
         _setupSearch: function () {
-            //On searchbox keyup, call debounce for searchAddress method with 300ms delay.
-            on(this.searchbox, 'keyup', this._debounce(() => this._searchAutoComplete(this.searchbox.value), 300));
+            //On searchbox keyup, call debounce for searchAddress method with 300ms delay, if key is enter, directly search.
+            const debouncedSearch = this._debounce(() => this._searchAutoComplete(this.searchbox.value), 300);
+            on(this.searchbox, 'keyup', (e) => {
+                if (e.key === "Enter") {
+                    this._searchAddress(this._appendPrefix(this.searchbox.value)); //Direct search
+                }
+                else if (e.key === "ArrowDown") { //Set focus on first address-result to navigate with arrow-keys.
+                    e.preventDefault(); //Prevent page scrolling
+
+                    let firstItem = query(".address-result")[0];
+                    if (firstItem) {
+                        firstItem.focus();
+                    }
+                }
+                else {
+                    debouncedSearch(); //calling the function that is returned from debouce
+                }
+            })
+
+            on(this.searchButton, 'click', () => {
+                this._searchAddress(this._appendPrefix(this.searchbox.value));
+            });
 
             on(this.searchForm, "submit", (e) => {
                 e.preventDefault(); //Prevent default behavior (Refresh)
-            })
+            });
 
             if (this.searchPrefix) {
                 this.prefixInput.value = this.searchPrefix;
-            }
+            };
         },
 
         _searchAutoComplete: function (address) {
@@ -70,14 +91,12 @@ define([
                 return;
             }
 
-            if (this.searchPrefix) {
-                address = `${this.searchPrefix} ${address}`;
-            }
+            //Append the search prefix
+            address = this._appendPrefix(address);
 
             fetch(`${this.apiAutoCompleteUrl}?address=${encodeURIComponent(address)}`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
                     this._updateDropdown(data);
                 });
         },
@@ -100,35 +119,60 @@ define([
 
             //Received results, create a list item for each result.
             results.forEach(result => {
-                const cleanedResult = result.replace(`${this.searchPrefix} `, "");
-
                 const li = document.createElement("li");
                 li.setAttribute("tabindex", "0");
-                li.textContent = cleanedResult;
+                li.setAttribute("class", "address-result")
+                li.textContent = this._removePrefix(result);
 
                 on(li, "click", function () {
-                    this.searchbox.value = cleanedResult;
-                    this.resultDropdown.classList.add("hidden");
                     this._searchAddress(result);
-                }.bind(this));  
+                }.bind(this));
+
+                on(li, "keydown", function (e) { //Could potentially be replaced by using HTML Select, but that requires alot of work.
+                    if (e.key === "Enter") {
+                        this._searchAddress(result);
+                    }
+                    else if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+                        e.preventDefault(); //Prevent page scrolling
+
+                        let items = query(".address-result"); //Get all list items in the dropdown
+                        let currentIndex = items.indexOf(e.target);
+
+                        if (e.key === "ArrowDown" && currentIndex < items.length - 1) {
+                            items[currentIndex + 1].focus(); //Move to next item if not at last pos
+                        } else if (e.key === "ArrowUp" && currentIndex > 0) {
+                            items[currentIndex - 1].focus(); //Move to previous item if not at first pos
+                        } else if (e.key === "ArrowUp" && currentIndex === 0) {
+                            this.searchbox.focus(); //Focus the searchbox again if on first pos
+                        }
+                    }
+                }.bind(this));
 
                 this.resultDropdown.appendChild(li);
             });
         },
 
         _searchAddress: function (address) {
+            //Hide the dropdown & populate the searchBox with address
+            this.searchbox.value = this._removePrefix(address);
+
             //Calls the SearchAddress API.
             //The encode URI - component makes sure the url isn't broken with special characters or blank spaces, etc.
             fetch(`${this.apiSearchUrl}?address=${encodeURIComponent(address)}`)
-                .then(response => response.json())
+                .then(response => {
+                    if (response.status === 204) { //Backend returned 204 (No Content)
+                        this.resultDropdown.classList.remove("hidden"); //Show the user that no addresses were found
+                        return;
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    console.log(data);
-                    if (data.coordinatesData) {
-
+                    if (data != null) {
+                        this.resultDropdown.classList.add("hidden"); //Remove dropdown
                         const lngX = data.coordinatesData.longitude;
                         const latY = data.coordinatesData.latitude;
 
-                        //Converting the coordinates
+                        //Converting the coordinates from EPSG:3006/SWEREF99 to WGS84
                         proj4.defs("EPSG:3006", "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs");
                         let convertedCoordinates = proj4('EPSG:3006', 'WGS84', [lngX, latY])
 
@@ -136,13 +180,22 @@ define([
                         const lat = convertedCoordinates[1];
 
                         this.set("value", { latitude: lat, longitude: lng });
-                    } else {
-                        alert("No address or coordinates found");
-                    }
+                    } 
                 }, (error) => {
                     console.error("Error with api-call: ", error);
-                    alert("could not get address (and coordinates)");
                 });
+        },
+
+        _appendPrefix: function (address) {
+            if (this.searchPrefix) {
+                return `${this.searchPrefix} ${address}`;
+            }
+        },
+
+        _removePrefix: function (address) {
+            if (this.searchPrefix) {
+                return address.replace(`${this.searchPrefix} `, "")
+            }
         },
 
         _onMapClick: function (event) {
@@ -194,7 +247,7 @@ define([
 
                 // Force the map to recalculate size after the container is ready
                 setTimeout(() => {
-                    this.map.invalidateSize(); // Arrow function retains "this" context
+                    this.map.invalidateSize(); //Arrow function retains "this" context
                 }, 500);
             }
         },

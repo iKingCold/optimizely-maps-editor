@@ -120,6 +120,12 @@ namespace DemoSite.Controllers
                     var searchJson = await searchResponse.Content.ReadAsStringAsync();
                     var searchResultArray = JsonConvert.DeserializeObject<List<dynamic>>(searchJson);
 
+                    //Return no content if search result is empty
+                    if(searchResultArray?.Count <= 0)
+                    {
+                        return NoContent();
+                    }
+
                     //Checks for an id
                     var searchResult = searchResultArray[0];
 
