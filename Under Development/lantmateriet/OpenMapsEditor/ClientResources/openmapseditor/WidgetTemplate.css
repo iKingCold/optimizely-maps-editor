@@ -82,7 +82,7 @@
     background-color: #ebebeb;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    border-radius: 0 6px 6px 0;
+    border-radius: 6px;
     padding: 0px 4px;
     z-index: 500; /*EPi forces us to use high z-index*/
 }

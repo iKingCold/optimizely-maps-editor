@@ -41,7 +41,7 @@ define([
                 this._updateMap(value);
             }
 
-            //This is insanely important
+            //Important for the CMS to bind correctly
             this.onFocus();
 
             //Set the coordinates in the CMS
@@ -83,16 +83,22 @@ define([
         },
 
         _updateDropdown: function (results) {
-            // Remove all existing children
+            this.resultDropdown.classList.remove("hidden"); //Show dropdown
+
+            //Remove all existing children
             while (this.resultDropdown.firstChild) {
                 this.resultDropdown.removeChild(this.resultDropdown.firstChild);
             }
 
+            //No results found
             if (results.length === 0) {
-                this.resultDropdown.classList.add("hidden");
+                const li = document.createElement("li");
+                li.textContent = "Hittar inga adresser för angivet sökord";
+                this.resultDropdown.appendChild(li);
                 return;
             }
 
+            //Received results, create a list item for each result.
             results.forEach(result => {
                 const cleanedResult = result.replace(`${this.searchPrefix} `, "");
 
@@ -100,15 +106,14 @@ define([
                 li.setAttribute("tabindex", "0");
                 li.textContent = cleanedResult;
 
-                li.addEventListener("click", () => {
+                on(li, "click", function () {
                     this.searchbox.value = cleanedResult;
                     this.resultDropdown.classList.add("hidden");
                     this._searchAddress(result);
-                });
+                }.bind(this));  
+
                 this.resultDropdown.appendChild(li);
             });
-
-            this.resultDropdown.classList.remove("hidden"); // Show dropdown
         },
 
         _searchAddress: function (address) {
