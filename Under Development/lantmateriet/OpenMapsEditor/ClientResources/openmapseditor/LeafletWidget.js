@@ -70,7 +70,7 @@ define([
                 else {
                     debouncedSearch(); //calling the function that is returned from debouce
                 }
-            })
+            });
 
             on(this.searchButton, 'click', () => {
                 this._searchAddress(this._appendPrefix(this.searchbox.value));

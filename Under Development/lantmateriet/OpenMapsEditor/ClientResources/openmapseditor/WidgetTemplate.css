@@ -50,6 +50,8 @@
 
 .search-div {
     flex-grow: 1;
+    display: flex;
+    position: relative;
 }
 
 #prefix-input {
@@ -79,11 +81,12 @@
 .dojo-dropdown {
     display: block;
     position: absolute;
+    top: 100%;
     background-color: #ebebeb;
-    min-width: 160px;
+    width: 100%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     border-radius: 6px;
-    padding: 0px 4px;
+    padding: 0px;
     z-index: 500; /*EPi forces us to use high z-index*/
 }
 
