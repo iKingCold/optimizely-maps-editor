@@ -190,12 +190,14 @@ define([
             if (this.searchPrefix) {
                 return `${this.searchPrefix} ${address}`;
             }
+            return address;
         },
 
         _removePrefix: function (address) {
             if (this.searchPrefix) {
                 return address.replace(`${this.searchPrefix} `, "")
             }
+            return address;
         },
 
         _onMapClick: function (event) {
