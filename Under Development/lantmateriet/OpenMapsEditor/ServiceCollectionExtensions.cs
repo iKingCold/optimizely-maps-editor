@@ -16,7 +16,7 @@ namespace OpenMapsEditor
         public static string? ApiTileUrl { get; set; }
         public static string? ApiAutoCompleteUrl { get; set; }
         public static string? ApiSearchUrl { get; set; }
-        public static string? SearchPrefix { get; set; }
+        public static string[]? SearchPrefix { get; set; }
         public static string? Identifier { get; set; }
         public static string? Username { get; set; }
         public static string? Password { get; set; }
@@ -47,7 +47,7 @@ namespace OpenMapsEditor
         /// <param name="minZoom">Minimum zoom restriction for the map</param>
         /// <param name="services"></param>
         public static IServiceCollection AddOpenMapsEditor(this IServiceCollection services, string apiTileUrl, string apiAutoCompleteUrl, string apiSearchUrl,
-            string searchPrefix, string identifier, string username, string password, string authType, double defaultLatitude, double defaultLongitude, int defaultZoom, 
+            string[] searchPrefix, string identifier, string username, string password, string authType, double defaultLatitude, double defaultLongitude, int defaultZoom, 
             int maxZoom, int minZoom)
         {
             ApiTileUrl = apiTileUrl;

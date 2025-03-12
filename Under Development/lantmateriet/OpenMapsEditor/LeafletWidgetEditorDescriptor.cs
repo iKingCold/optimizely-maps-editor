@@ -11,7 +11,7 @@ namespace OpenMapsEditor
         public string ApiTileUrl { get; set; } = ServiceCollectionExtensions.ApiTileUrl;
         public string ApiAutoCompleteUrl { get; set; } = ServiceCollectionExtensions.ApiAutoCompleteUrl;
         public string ApiSearchUrl { get; set; } = ServiceCollectionExtensions.ApiSearchUrl;
-        public string? SearchPrefix { get; set; } = ServiceCollectionExtensions.SearchPrefix;
+        public string[]? SearchPrefix { get; set; } = ServiceCollectionExtensions.SearchPrefix;
         public double DefaultLatitude { get; set; } = ServiceCollectionExtensions.DefaultLatitude;
         public double DefaultLongitude { get; set; } = ServiceCollectionExtensions.DefaultLongitude;
         public int DefaultZoom { get; set; } = ServiceCollectionExtensions.DefaultZoom;
