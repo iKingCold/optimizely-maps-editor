@@ -60,7 +60,7 @@ define([
             }
 
             if (this.searchPrefix.length > 1) {
-                //We received an array of prefixes, display prefix dropdown.
+                //We received an array of prefixes, create options & display prefix dropdown.
                 this.searchPrefix.forEach(prefix => {
                     const option = document.createElement("option");
                     option.textContent = prefix;
@@ -206,17 +206,31 @@ define([
         },
 
         _appendPrefix: function (address) {
-            if (this.searchPrefix) {
+            if (!this.searchPrefix) {
+                return address;
+            }
+
+            if (this.searchPrefix.length > 1) {
+                //Return the selected option from the dropdown
+                return `${this.prefixDropdown.value} ${address}`;
+            }
+            else {
+                //Return the specified prefix
                 return `${this.searchPrefix} ${address}`;
             }
-            return address;
         },
 
         _removePrefix: function (address) {
-            if (this.searchPrefix) {
+            if (!this.searchPrefix) {
+                return address;
+            }
+
+            if (this.searchPrefix.length > 1) {
+                return address.replace(`${this.prefixDropdown.value} `, "")
+            }
+            else {
                 return address.replace(`${this.searchPrefix} `, "")
             }
-            return address;
         },
 
         _onMapClick: function (event) {
