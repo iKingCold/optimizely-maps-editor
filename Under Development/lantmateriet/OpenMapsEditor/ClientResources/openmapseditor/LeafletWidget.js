@@ -151,6 +151,10 @@ define([
                     if (e.key === "Enter") {
                         this._searchAddress(result);
                     }
+                    else if (e.key === " ") { //e.key "Spacebar" doesn't work, identifier for spacebar is a blankspace for some reason?
+                        this.searchbox.value = li.textContent;
+                        this.searchbox.focus();
+                    }
                     else if (e.key === "ArrowDown" || e.key === "ArrowUp") {
                         e.preventDefault(); //Prevent page scrolling
 
