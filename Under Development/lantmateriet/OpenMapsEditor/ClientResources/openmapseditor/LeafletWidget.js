@@ -20,7 +20,8 @@ define([
 
         postCreate: function () {
             this.inherited(arguments);
-            this._setupSearch(); //Creates search-functionality
+            this._setupPrefix(); //Initialize prefix functionality
+            this._setupSearch(); //Initialize search functionality
             this._initMap(); // Initialize the map once Leaflet is loaded
         },
 
@@ -52,6 +53,28 @@ define([
             this.onChange(value);
         },
 
+        _setupPrefix: function () {
+            //No prefix supplied, return without rendering prefixInput / dropdown
+            if (!this.searchPrefix) {
+                return;
+            }
+
+            if (this.searchPrefix.length > 1) {
+                //We received an array of prefixes, display prefix dropdown.
+                this.searchPrefix.forEach(prefix => {
+                    const option = document.createElement("option");
+                    option.textContent = prefix;
+                    this.prefixDropdown.appendChild(option);
+                });
+                this.prefixDropdown.classList.remove("hidden");
+            }
+            else if (this.searchPrefix.length === 1) {
+                //We received one search prefix, display prefixInput.
+                this.prefixInput.value = this.searchPrefix;
+                this.prefixInput.classList.remove("hidden");
+            }
+        },
+
         _setupSearch: function () {
             //On searchbox keyup, call debounce for searchAddress method with 300ms delay, if key is enter, directly search.
             const debouncedSearch = this._debounce(() => this._searchAutoComplete(this.searchbox.value), 300);
@@ -79,10 +102,6 @@ define([
             on(this.searchForm, "submit", (e) => {
                 e.preventDefault(); //Prevent default behavior (Refresh)
             });
-
-            if (this.searchPrefix) {
-                this.prefixInput.value = this.searchPrefix;
-            };
         },
 
         _searchAutoComplete: function (address) {

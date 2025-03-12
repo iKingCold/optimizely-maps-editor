@@ -54,13 +54,24 @@
     position: relative;
 }
 
-#prefix-input {
+.prefix {
     border-radius: 6px;
-    padding: 8.5px 12px;
     margin-right: 5px;
     width: 5rem;
-    background-color: #ebebeb;
+}
+
+#prefix-input {
     color: #7d7777;
+    background-color: #ebebeb;
+    padding: 8.5px 12px;
+    width: 5rem;
+}
+
+#prefix-dropdown {
+    color: black;
+    background-color: #ebebeb;
+    padding: 8px 2px;
+    width: 7rem;
 }
 
 .search-button {
