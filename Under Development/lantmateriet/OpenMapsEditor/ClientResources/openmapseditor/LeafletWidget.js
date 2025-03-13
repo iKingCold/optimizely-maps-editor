@@ -215,6 +215,9 @@ define([
             }
 
             if (this.searchPrefix.length > 1) {
+                //User selected empty prefix in dropdown, return address without prefix
+                if (this.prefixDropdown.value === "") { return address }
+
                 //Return the selected option from the dropdown
                 return `${this.prefixDropdown.value} ${address}`;
             }
@@ -230,6 +233,8 @@ define([
             }
 
             if (this.searchPrefix.length > 1) {
+                if (this.prefixDropdown.value === "") { return address }
+
                 return address.replace(`${this.prefixDropdown.value} `, "")
             }
             else {
