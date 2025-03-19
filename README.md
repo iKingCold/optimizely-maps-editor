@@ -3,7 +3,7 @@ Editor for setting coordinates in Optimizely CMS through map of choice with Leaf
 The editor uses OpenStreetMaps by default. 
 
 ## Summary
-The solution consists of two projects.<br/>
+The solution consists of two projects.
 `OpenMapsEditor` contains the Map Editor add-on / plugin.<br/>
 `DemoSite` contains a demo website for testing the Map Editor.
 
@@ -21,7 +21,6 @@ MusicFestival is a sample project that uses the Content Delivery API in a headle
 # Option 2. Get started through the repository
 1. Clone the repository
 1. Run the `create-database.bat` to create an empty database
-    - _OR_ attach a database of your choice
 1. Open the solution and start the `DemoSite` project 
 1. Create an admin user in the Optimizely UI: http://localhost:8081/Util/Login
 1. Create a new page in the Optimizely UI Edit-panel
