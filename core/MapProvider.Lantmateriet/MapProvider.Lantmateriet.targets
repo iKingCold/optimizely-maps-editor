@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"> <!-- Technically this is not required as of VS2017 -->
+
+	<!-- Zip & copy 'ZipFiles' into modules/_protected -->
+
+	<ItemGroup>
+		<ZipFiles Include="$(MSBuildThisFileDirectory)..\..\contentFiles\any\any\modules\_protected\**\*.zip" />
+	</ItemGroup>
+
+	<Target Name="Zip" BeforeTargets="Build">
+		<Copy
+            SourceFiles="@(ZipFiles)"
+            DestinationFolder="$(MSBuildProjectDirectory)\modules\_protected\%(RecursiveDir)"
+        />
+	</Target>
+
+</Project>

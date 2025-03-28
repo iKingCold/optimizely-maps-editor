@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35521.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapCore", "MapCore\MapCore.csproj", "{B71CAD81-6485-4F15-AC0B-9B9FB45F4C38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapProvider.Lantmateriet", "MapProvider.Lantmateriet\MapProvider.Lantmateriet.csproj", "{271A36D4-D866-4A0D-9994-D1816BCE30DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapProvider.OpenStreetMap", "MapProvider.OpenStreetMap\MapProvider.OpenStreetMap.csproj", "{E00A2EE1-6F90-4CD9-B34C-5E607E2E8E64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapDemo", "MapDemo\MapDemo.csproj", "{C9A148A6-A45A-44C7-A1CC-71A9FE7DD793}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B71CAD81-6485-4F15-AC0B-9B9FB45F4C38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B71CAD81-6485-4F15-AC0B-9B9FB45F4C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B71CAD81-6485-4F15-AC0B-9B9FB45F4C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B71CAD81-6485-4F15-AC0B-9B9FB45F4C38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{271A36D4-D866-4A0D-9994-D1816BCE30DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{271A36D4-D866-4A0D-9994-D1816BCE30DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{271A36D4-D866-4A0D-9994-D1816BCE30DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{271A36D4-D866-4A0D-9994-D1816BCE30DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E00A2EE1-6F90-4CD9-B34C-5E607E2E8E64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E00A2EE1-6F90-4CD9-B34C-5E607E2E8E64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E00A2EE1-6F90-4CD9-B34C-5E607E2E8E64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E00A2EE1-6F90-4CD9-B34C-5E607E2E8E64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9A148A6-A45A-44C7-A1CC-71A9FE7DD793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9A148A6-A45A-44C7-A1CC-71A9FE7DD793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9A148A6-A45A-44C7-A1CC-71A9FE7DD793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9A148A6-A45A-44C7-A1CC-71A9FE7DD793}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
