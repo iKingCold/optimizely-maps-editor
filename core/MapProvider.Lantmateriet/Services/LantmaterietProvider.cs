@@ -6,16 +6,11 @@ using System.Text;
 
 namespace MapProvider.Lantmateriet.Services
 {
-    public class LantmaterietSettings : MapSettings
-    {
-        public string Identifier { get; set; }
-    }
-
     public class LantmaterietProvider : IMapProvider
     {
-        private readonly LantmaterietSettings _settings;
+        private readonly MapSettings _settings;
 
-        public LantmaterietProvider(IOptions<LantmaterietSettings> options)
+        public LantmaterietProvider(IOptions<MapSettings> options)
         {
             _settings = options.Value;
         }

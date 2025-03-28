@@ -4,13 +4,11 @@ using MapCore.Services;
 
 namespace MapProvider.OpenStreetMap.Services
 {
-    public class OsmSettings : MapSettings { }
-
     public class OsmProvider : IMapProvider
     {
-        private readonly OsmSettings _settings;
+        private readonly MapSettings _settings;
 
-        public OsmProvider(IOptions<OsmSettings> options)
+        public OsmProvider(IOptions<MapSettings> options)
         {
             _settings = options.Value;
         }
