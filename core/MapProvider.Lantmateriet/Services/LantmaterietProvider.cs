@@ -23,7 +23,7 @@ namespace MapProvider.Lantmateriet.Services
             return $"{_settings.AuthType} {authToken}";
         }
 
-        public string GetTileUrl(int z, int x, int y)
+        public string GetTileUrl(int z, int y, int x)
         {
             return $"{_settings.ApiTileUrl}{_settings.Identifier}/default/3857/{z}/{y}/{x}.png";
         }

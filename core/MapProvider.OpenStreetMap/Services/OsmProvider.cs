@@ -20,9 +20,9 @@ namespace MapProvider.OpenStreetMap.Services
             return string.Empty;
         }
 
-        public string GetTileUrl(int z, int x, int y)
+        public string GetTileUrl(int z, int y, int x)
         {
-            return $"{_settings.ApiTileUrl}/{z}/{y}/{x}.png";
+            return $"{_settings.ApiTileUrl}/{z}/{x}/{y}.png";
         }
     }
 } 

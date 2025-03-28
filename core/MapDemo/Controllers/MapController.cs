@@ -24,12 +24,14 @@ namespace MapDemo.Controllers
         [HttpGet("GetTileImage")]
         public async Task<IActionResult> GetTileImage(int z, int y, int x)
         {
-            var apiUrl = _mapProvider.GetTileUrl(z, x, y);
+            var apiUrl = _mapProvider.GetTileUrl(z, y, x);
 
             using (var httpClient = new HttpClient())
             {
                 try
                 {
+                    httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("OpenMapsEditor/1.0"); //OSM requires a user-agent
+
                     if (_mapProvider.RequiresAuthentication)
                     {
                         var authHeader = _mapProvider.GetAuthenticationHeader();

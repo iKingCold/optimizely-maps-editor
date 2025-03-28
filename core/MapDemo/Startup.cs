@@ -12,6 +12,7 @@ using OpenMapsEditor;
 using System.Diagnostics;
 using MapCore.Services;
 using MapProvider.Lantmateriet.Services;
+using MapProvider.OpenStreetMap.Services;
 
 namespace MapDemo
 {
@@ -53,7 +54,7 @@ namespace MapDemo
                 .AddEmbeddedLocalization<Startup>()
                 .Configure<MapSettings>(_configuration.GetSection("MapSettings")) //Populate MapSettings from appsettings.json
                 .AddSingleton(sp => sp.GetRequiredService<IOptions<MapSettings>>().Value) //Scope the MapSettings-service
-                .AddScoped<IMapProvider, LantmaterietProvider>();
+                .AddScoped<IMapProvider, OsmProvider>();
 
             var mapSettings = _configuration.GetSection("MapSettings").Get<MapSettings>();
 

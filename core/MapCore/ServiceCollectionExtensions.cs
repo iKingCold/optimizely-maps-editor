@@ -30,7 +30,7 @@ namespace OpenMapsEditor
         public static int MaxZoom { get; set; }
         public static int MinZoom { get; set; }
 
-        public const string MapProvider = "MapProvider.Lantmateriet";
+        public const string MapProvider = "MapProvider.OpenStreetMap";
 
         /// <summary>
         /// Enables the Open Maps Editor
