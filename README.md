@@ -1,6 +1,13 @@
 ## UNDER CONSTRUCTION
 THIS REPO IS CURRENTLY UNDERGOING REFACTORING, README IS NOT ACCURATE AND PROJECT IS CHANGING RAPIDLY!
 
+# Switch MapProvider (Will change in the near future): 
+1. Configure the desired MapProvider in MapCore/ServiceCollectionExtensions.cs
+example: MapProvider = "MapProvider.Lantmateriet"; or MapProvider = "MapProvider.OpenStreetMap";
+2. Scope the desired MapProvider in MapDemo/Startup.cs
+example: .AddScoped<IMapProvider, LantmaterietProvider>(); or .AddScoped<IMapProvider, OsmProvider>();
+3. Configure the MapSettings with desired ApiUrls in MapDemo/appsettings.json.
+
 # Open Maps Editor for Optimizely
 Editor for setting coordinates in Optimizely CMS through map of choice with Leaflet.js.<br/>
 The editor uses OpenStreetMaps by default. 
