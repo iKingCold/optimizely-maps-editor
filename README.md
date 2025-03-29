@@ -1,3 +1,6 @@
+## UNDER CONSTRUCTION
+THIS REPO IS CURRENTLY UNDERGOING REFACTORING, README IS NOT ACCURATE AND PROJECT IS CHANGING RAPIDLY!
+
 # Open Maps Editor for Optimizely
 Editor for setting coordinates in Optimizely CMS through map of choice with Leaflet.js.<br/>
 The editor uses OpenStreetMaps by default. 
