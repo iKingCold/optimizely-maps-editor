@@ -24,5 +24,15 @@ namespace MapProvider.OpenStreetMap.Services
         {
             return $"{_settings.ApiTileUrl}/{z}/{x}/{y}.png";
         }
+
+        public string GetSearchParamName()
+        {
+            return "q";
+        }
+
+        public string GetLimitParamName()
+        {
+            return "limit";
+        }
     }
 } 

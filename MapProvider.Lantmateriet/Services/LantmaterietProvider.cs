@@ -27,5 +27,15 @@ namespace MapProvider.Lantmateriet.Services
         {
             return $"{_settings.ApiTileUrl}{_settings.Identifier}/default/3857/{z}/{y}/{x}.png";
         }
+
+        public string GetSearchParamName()
+        {
+            return "adress";
+        }
+
+        public string GetLimitParamName()
+        {
+            return "maxHits";
+        }
     }
 } 

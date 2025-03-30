@@ -71,12 +71,14 @@ namespace MapDemo.Controllers
             }
 
             var uriAddress = HttpUtility.UrlEncode(address);
-            var searchUrl = $"{_settings.ApiAutoCompleteUrl}?adress={uriAddress}&maxHits=5";
+            var searchUrl = $"{_settings.ApiAutoCompleteUrl}?{_mapProvider.GetSearchParamName()}={uriAddress}&{_mapProvider.GetLimitParamName()}=5";
 
             using (var httpClient = new HttpClient())
             {
                 try
                 {
+                    httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("OpenMapsEditor/1.0"); //OSM requires a user-agent
+
                     if (_mapProvider.RequiresAuthentication)
                     {
                         var authHeader = _mapProvider.GetAuthenticationHeader();
@@ -115,19 +117,21 @@ namespace MapDemo.Controllers
                 return BadRequest("Enter something to search...");
             }
 
-            var searchUrl = $"{_settings.ApiSearchUrl}?adress={address}&maxHits=1";
+            var searchUrl = $"{_settings.ApiSearchUrl}?{_mapProvider.GetSearchParamName()}={address}&{_mapProvider.GetLimitParamName()}=1";
 
             using (var httpClient = new HttpClient())
             {
                 try
                 {
+                    httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("OpenMapsEditor/1.0"); //OSM requires a user-agent
+
                     if (_mapProvider.RequiresAuthentication)
                     {
                         var authHeader = _mapProvider.GetAuthenticationHeader();
                         var parts = authHeader.Split(' ');
-                        if (parts.Length == 2)
+                        if (parts.Length == 2) //First part is authType, second is authToken
                         {
-                            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(parts[0], parts[1]);
+                            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(parts[0], parts[1]); 
                         }
                     }
 
