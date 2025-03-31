@@ -145,10 +145,10 @@ define([
 
                 //Photon/OSM autocomplete frequently returns results for other cities, fix by compairing result city & prefix. 
                 if (this.searchPrefix && this.prefixDropdown.value !== "") {
-                    if (this.searchPrefix.length > 1 && result.city !== this.prefixDropdown.value) {
+                    if (this.searchPrefix.length > 1 && result.city !== null && result.city !== this.prefixDropdown.value) {
                         return;
                     }
-                    else if (this.searchPrefix.length === 1 && result.city !== this.searchPrefix) {
+                    else if (this.searchPrefix.length === 1 && result.city !== null && result.city !== this.searchPrefix) {
                         return;
                     }
                 }
@@ -159,12 +159,14 @@ define([
                 li.textContent = this._removePrefix(result.address);
 
                 on(li, "click", function () {
-                    this._autoCompleteSelect(result);
+                    if (result.longitude && result.latitude) { this._autoCompleteSelect(result); }
+                    else { this._searchAddress(result.address); }
                 }.bind(this));
 
                 on(li, "keydown", function (e) { //Could potentially be replaced by using HTML Select, but that requires alot of work.
                     if (e.key === "Enter") {
-                        this._autoCompleteSelect(result);
+                        if (result.longitude && result.latitude) { this._autoCompleteSelect(result); }
+                        else { this._searchAddress(result.address); }
                     }
                     else if (e.key === " ") { //e.key "Spacebar" doesn't work, identifier for spacebar is a blankspace for some reason?
                         this.searchbox.value = li.textContent;

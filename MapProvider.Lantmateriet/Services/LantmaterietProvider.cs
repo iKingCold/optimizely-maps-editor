@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Mvc;
 
 namespace MapProvider.Lantmateriet.Services
 {
