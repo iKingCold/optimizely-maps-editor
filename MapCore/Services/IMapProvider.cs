@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,5 +12,6 @@ namespace MapCore.Services
         bool RequiresAuthentication { get; }
         string GetAuthenticationHeader();
         Task<IEnumerable<SearchResult>> ParseAutoCompleteResults(string jsonResponse);
+        Task<Tuple<double, double>> ParseSearchResult(string jsonResponse);
     }
 } 

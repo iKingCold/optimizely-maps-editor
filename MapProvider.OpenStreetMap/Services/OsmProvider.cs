@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Linq;
+using System;
 
 namespace MapProvider.OpenStreetMap.Services
 {
@@ -52,6 +53,12 @@ namespace MapProvider.OpenStreetMap.Services
                 Longitude = feature.geometry.coordinates[0],
                 Latitude = feature.geometry.coordinates[1]
             });
+        }
+
+        public Task<Tuple<double, double>> ParseSearchResult(string jsonResponse)
+        {
+            //Probably just have to return coordinates, double check this
+            throw new NotImplementedException();
         }
     }
 }

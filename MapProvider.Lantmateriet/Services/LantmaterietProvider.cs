@@ -50,5 +50,11 @@ namespace MapProvider.Lantmateriet.Services
                 Address = address
             });
         }
+
+        public Task<Tuple<double, double>> ParseSearchResult(string jsonResponse)
+        {
+            //Implement SWEREF99 TO WGS84 conversion, then we may remove proj4 from leaflet-widget.
+            throw new NotImplementedException();
+        }
     }
 }
