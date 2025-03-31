@@ -30,7 +30,7 @@ namespace OpenMapsEditor
         public static int MaxZoom { get; set; }
         public static int MinZoom { get; set; }
 
-        public const string MapProvider = "MapProvider.OpenStreetMap";
+        public const string Plugin = "MapCore";
 
         /// <summary>
         /// Enables the Open Maps Editor
@@ -70,11 +70,11 @@ namespace OpenMapsEditor
             services.Configure<ProtectedModuleOptions>(
                     pm =>
                     {
-                        if (!pm.Items.Any(i => i.Name.Equals(MapProvider, StringComparison.OrdinalIgnoreCase)))
+                        if (!pm.Items.Any(i => i.Name.Equals(Plugin, StringComparison.OrdinalIgnoreCase)))
                         {
                             pm.Items.Add(new ModuleDetails
                             {
-                                Name = MapProvider
+                                Name = Plugin
                             });
                         }
                     });

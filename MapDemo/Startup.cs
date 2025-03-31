@@ -38,7 +38,7 @@ namespace MapDemo
 
                 services.Configure<CompositeFileProviderOptions>(c =>
                 {
-                    c.BasePathFileProviders.Add(new MappingPhysicalFileProvider($"/EPiServer/{OpenMapsEditor.ServiceCollectionExtensions.MapProvider}", string.Empty, Path.Combine(uiSolutionFolder, OpenMapsEditor.ServiceCollectionExtensions.MapProvider)));
+                    c.BasePathFileProviders.Add(new MappingPhysicalFileProvider($"/EPiServer/{OpenMapsEditor.ServiceCollectionExtensions.Plugin}", string.Empty, Path.Combine(uiSolutionFolder, OpenMapsEditor.ServiceCollectionExtensions.Plugin)));
                 });
 
                 services.Configure<SchedulerOptions>(options => options.Enabled = false)
