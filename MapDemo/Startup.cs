@@ -54,7 +54,7 @@ namespace MapDemo
                 .AddEmbeddedLocalization<Startup>()
                 .Configure<MapSettings>(_configuration.GetSection("MapSettings")) //Populate MapSettings from appsettings.json
                 .AddSingleton(sp => sp.GetRequiredService<IOptions<MapSettings>>().Value) //Scope the MapSettings-service
-                .AddScoped<IMapProvider, OsmProvider>();
+                .AddScoped<IMapProvider, LantmaterietProvider>();
 
             var mapSettings = _configuration.GetSection("MapSettings").Get<MapSettings>();
 
