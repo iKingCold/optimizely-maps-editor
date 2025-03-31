@@ -1,8 +1,13 @@
+using System.Linq;
 using Microsoft.Extensions.Options;
 using MapCore.Models;
 using MapCore.Services;
 using System;
 using System.Text;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MapProvider.Lantmateriet.Services
 {
@@ -37,5 +42,14 @@ namespace MapProvider.Lantmateriet.Services
         {
             return "maxHits";
         }
+        public async Task<IEnumerable<SearchResult>> ParseAutoCompleteResults(string jsonResponse)
+        {
+            var addresses = JsonConvert.DeserializeObject<List<string>>(jsonResponse);
+
+            return addresses.Select(address => new SearchResult
+            {
+                Address = address
+            });
+        }
     }
-} 
+}

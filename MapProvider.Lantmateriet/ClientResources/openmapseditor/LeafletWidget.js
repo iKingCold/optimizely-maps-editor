@@ -141,15 +141,15 @@ define([
                 const li = document.createElement("li");
                 li.setAttribute("tabindex", "0");
                 li.setAttribute("class", "address-result")
-                li.textContent = this._removePrefix(result);
+                li.textContent = this._removePrefix(result.address);
 
                 on(li, "click", function () {
-                    this._searchAddress(result);
+                    this._searchAddress(result.address);
                 }.bind(this));
 
                 on(li, "keydown", function (e) { //Could potentially be replaced by using HTML Select, but that requires alot of work.
                     if (e.key === "Enter") {
-                        this._searchAddress(result);
+                        this._searchAddress(result.address);
                     }
                     else if (e.key === " ") { //e.key "Spacebar" doesn't work, identifier for spacebar is a blankspace for some reason?
                         this.searchbox.value = li.textContent;

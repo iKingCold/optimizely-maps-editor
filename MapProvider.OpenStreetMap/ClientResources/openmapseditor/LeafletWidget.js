@@ -116,7 +116,7 @@ define([
             fetch(`${this.baseUrl}/SearchAutoComplete?address=${encodeURIComponent(address)}`)
                 .then(response => response.json())
                 .then(data => {
-                    this._updateDropdown(data.features); //Features contains a list of results.
+                    this._updateDropdown(data); //Features contains a list of results.
                 });
         },
 
@@ -141,34 +141,30 @@ define([
 
                 console.log(result);
 
-                let address = result.properties.street ?? result.properties.name;
-                const city = result.properties.city;
-                const housenumber = result.properties.housenumber ?? null;
-                if (housenumber) { address += " " + housenumber };
-                const data = { address: address, longitude: result.geometry.coordinates[0], latitude: result.geometry.coordinates[1] };
+                if (result.propertyNumber) { result.address += " " + result.propertyNumber };
 
                 //Photon/OSM autocomplete frequently returns results for other cities, fix by compairing result city & prefix. 
                 if (this.searchPrefix && this.prefixDropdown.value !== "") {
-                    if (this.searchPrefix.length > 1 && city !== this.prefixDropdown.value) {
+                    if (this.searchPrefix.length > 1 && result.city !== this.prefixDropdown.value) {
                         return;
                     }
-                    else if (this.searchPrefix.length === 1 && city !== this.searchPrefix) {
+                    else if (this.searchPrefix.length === 1 && result.city !== this.searchPrefix) {
                         return;
                     }
                 }
 
-                const li = document.createElement("li");
+                const li = document.createElement("li")
                 li.setAttribute("tabindex", "0");
                 li.setAttribute("class", "address-result")
-                li.textContent = this._removePrefix(address);
+                li.textContent = this._removePrefix(result.address);
 
                 on(li, "click", function () {
-                    this._autoCompleteSelect(data);
+                    this._autoCompleteSelect(result);
                 }.bind(this));
 
                 on(li, "keydown", function (e) { //Could potentially be replaced by using HTML Select, but that requires alot of work.
                     if (e.key === "Enter") {
-                        this._autoCompleteSelect(data);
+                        this._autoCompleteSelect(result);
                     }
                     else if (e.key === " ") { //e.key "Spacebar" doesn't work, identifier for spacebar is a blankspace for some reason?
                         this.searchbox.value = li.textContent;

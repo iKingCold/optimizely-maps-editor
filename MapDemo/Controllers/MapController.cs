@@ -97,9 +97,8 @@ namespace MapDemo.Controllers
                     }
 
                     var searchJson = await searchResponse.Content.ReadAsStringAsync();
-                    var searchResultArray = JsonConvert.DeserializeObject<List<dynamic>>(searchJson);
-
-                    return Ok(searchResultArray);
+                    var results = await _mapProvider.ParseAutoCompleteResults(searchJson);
+                    return Ok(results);
                 }
                 catch (Exception ex)
                 {
