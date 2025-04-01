@@ -1,10 +1,8 @@
-public class SearchResult
+﻿namespace MapCore.Models
 {
-    public string Address { get; set; }
-
-    //Props for Photon/OSM, autoComplete gives detailed response with coordinates, city, PropertyNumber etc. 
-    public string? City { get; set; }
-    public int? PropertyNumber { get; set; }
-    public double? Longitude { get; set; }
-    public double? Latitude { get; set; }
-} 
+    public class SearchResult
+    {
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
+    }
+}

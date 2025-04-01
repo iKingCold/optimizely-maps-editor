@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MapCore.Models;
 
 namespace MapCore.Services
 {
@@ -11,7 +11,7 @@ namespace MapCore.Services
         string GetLimitParamName();
         bool RequiresAuthentication { get; }
         string GetAuthenticationHeader();
-        Task<IEnumerable<SearchResult>> ParseAutoCompleteResults(string jsonResponse);
-        Task<Tuple<double, double>> ParseSearchResult(string jsonResponse);
+        Task<IEnumerable<AutoCompleteResult>> ParseAutoCompleteResults(string jsonResponse);
+        SearchResult ParseSearchResult(string jsonResponse);
     }
 } 

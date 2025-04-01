@@ -41,20 +41,20 @@ namespace MapProvider.Lantmateriet.Services
         {
             return "maxHits";
         }
-        public async Task<IEnumerable<SearchResult>> ParseAutoCompleteResults(string jsonResponse)
+        public async Task<IEnumerable<AutoCompleteResult>> ParseAutoCompleteResults(string jsonResponse)
         {
             var addresses = JsonConvert.DeserializeObject<List<string>>(jsonResponse);
 
-            return addresses.Select(address => new SearchResult
+            return addresses.Select(address => new AutoCompleteResult
             {
                 Address = address
             });
         }
 
-        public Task<Tuple<double, double>> ParseSearchResult(string jsonResponse)
+        public SearchResult ParseSearchResult(string jsonResponse)
         {
             //Implement SWEREF99 TO WGS84 conversion, then we may remove proj4 from leaflet-widget.
-            throw new NotImplementedException();
+            return new SearchResult { Longitude = 0, Latitude = 0 };
         }
     }
 }

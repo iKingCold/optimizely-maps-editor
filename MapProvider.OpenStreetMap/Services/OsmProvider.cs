@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Linq;
-using System;
 
 namespace MapProvider.OpenStreetMap.Services
 {
@@ -41,11 +40,11 @@ namespace MapProvider.OpenStreetMap.Services
             return "limit";
         }
 
-        public async Task<IEnumerable<SearchResult>> ParseAutoCompleteResults(string jsonResponse)
+        public async Task<IEnumerable<AutoCompleteResult>> ParseAutoCompleteResults(string jsonResponse)
         {
             var osmResponse = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
             var features = ((JArray)osmResponse.features).ToObject<List<dynamic>>();
-            return features.Select(feature => new SearchResult
+            return features.Select(feature => new AutoCompleteResult
             {
                 Address = feature.properties.street ?? feature.properties.name,
                 City = feature.properties.city,
@@ -55,10 +54,10 @@ namespace MapProvider.OpenStreetMap.Services
             });
         }
 
-        public Task<Tuple<double, double>> ParseSearchResult(string jsonResponse)
+        public SearchResult ParseSearchResult(string jsonResponse)
         {
             //Probably just have to return coordinates, double check this
-            throw new NotImplementedException();
+            return new SearchResult { Longitude = 0, Latitude = 0 };
         }
     }
 }
