@@ -52,7 +52,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EPiServer.CMS" Version="[12.31.2,13)" />
 		<ProjectReference Include="..\MapCore\MapCore.csproj" />
 	</ItemGroup>
 
