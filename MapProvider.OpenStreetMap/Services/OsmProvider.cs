@@ -54,7 +54,7 @@ namespace MapProvider.OpenStreetMap.Services
             });
         }
 
-        public SearchResult ParseSearchResult(string jsonResponse)
+        public async Task<SearchResult> ParseSearchResult(string searchJson)
         {
             //Probably just have to return coordinates, double check this
             return new SearchResult { Longitude = 0, Latitude = 0 };

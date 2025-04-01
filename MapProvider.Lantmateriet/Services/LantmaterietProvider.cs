@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using MightyLittleGeodesy.Positions;
+using System.Net.Http;
+using EPiServer.Async;
 
 namespace MapProvider.Lantmateriet.Services
 {
@@ -51,9 +54,47 @@ namespace MapProvider.Lantmateriet.Services
             });
         }
 
-        public SearchResult ParseSearchResult(string jsonResponse)
+        public async Task<SearchResult> ParseSearchResult(string searchJson)
         {
             //Implement SWEREF99 TO WGS84 conversion, then we may remove proj4 from leaflet-widget.
+            var results = JsonConvert.DeserializeObject<List<dynamic>>(searchJson);
+            Console.WriteLine(results);
+
+            if (results?.Count <= 0)
+            {
+                //No results found, return empty.
+            }
+
+            var searchResult = results[0];
+            var id = (string)searchResult?.objektidentitet;
+
+            if (string.IsNullOrEmpty(id))
+            {
+                //No id found, return empty.
+            }
+
+            var coordinatesUrl = $"https://api.lantmateriet.se/distribution/produkter/belagenhetsadress/v4.2/{id}?includeData=basinformation";
+            using (var httpClient = new HttpClient())
+            { 
+                var coordinatesResponse = await httpClient.GetAsync(coordinatesUrl);
+                if (!coordinatesResponse.IsSuccessStatusCode)
+                {
+
+                    //Return error message
+                    //return StatusCode((int)coordinatesResponse.StatusCode, $"API-call failed: {coordinatesResponse.ReasonPhrase}");
+                }
+
+                var coordinatesJson = await coordinatesResponse.Content.ReadAsStringAsync();
+                var coordinatesResult = JsonConvert.DeserializeObject<dynamic>(coordinatesJson);
+
+                var swePos = new SWEREF99Position(
+                    (double)coordinatesResult.features[0].geometry.coordinates[0],
+                    (double)coordinatesResult.features[0].geometry.coordinates[1]
+                    );
+
+                var wgsPos = swePos.ToWGS84();
+            }
+
             return new SearchResult { Longitude = 0, Latitude = 0 };
         }
     }

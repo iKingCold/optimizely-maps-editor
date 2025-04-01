@@ -12,6 +12,6 @@ namespace MapCore.Services
         bool RequiresAuthentication { get; }
         string GetAuthenticationHeader();
         Task<IEnumerable<AutoCompleteResult>> ParseAutoCompleteResults(string jsonResponse);
-        SearchResult ParseSearchResult(string jsonResponse);
+        Task<SearchResult> ParseSearchResult(string jsonResponse);
     }
 } 

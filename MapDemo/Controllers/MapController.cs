@@ -142,31 +142,7 @@ namespace MapDemo.Controllers
                     }
 
                     var searchJson = await searchResponse.Content.ReadAsStringAsync();
-                    var searchResultArray = JsonConvert.DeserializeObject<List<dynamic>>(searchJson);
-
-                    if(searchResultArray?.Count <= 0)
-                    {
-                        return NoContent();
-                    }
-
-                    var searchResult = searchResultArray[0];
-                    var id = (string)searchResult?.objektidentitet;
-                    
-                    if (string.IsNullOrEmpty(id))
-                    {
-                        return NotFound("No id found");
-                    }
-
-                    var coordinatesUrl = $"https://api.lantmateriet.se/distribution/produkter/belagenhetsadress/v4.2/{id}?includeData={includeData}";
-
-                    var coordinatesResponse = await httpClient.GetAsync(coordinatesUrl);
-                    if (!coordinatesResponse.IsSuccessStatusCode)
-                    {
-                        return StatusCode((int)coordinatesResponse.StatusCode, $"API-call failed: {coordinatesResponse.ReasonPhrase}");
-                    }
-
-                    var coordinatesJson = await coordinatesResponse.Content.ReadAsStringAsync();
-                    var coordinatesResult = JsonConvert.DeserializeObject<dynamic>(coordinatesJson);
+                    var results = await _mapProvider.ParseSearchResult(searchJson);
 
                     var longitude = (double)coordinatesResult.features[0].geometry.coordinates[0];
                     var latitude = (double)coordinatesResult.features[0].geometry.coordinates[1];

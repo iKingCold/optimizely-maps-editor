@@ -5,13 +5,12 @@ define([
     "dijit/_WidgetBase", //Required to instantiate a Dojo Widget
     "dijit/_TemplatedMixin", //Adds support for creating the DOM from a HTML Template
     "dojo/text!./WidgetTemplate.html", //HTML Template
-    "openmapseditor/proj/proj4", //Load the local PROJ4 coordinate-conversion script
     "dojo/query", //Used to query for DOM-nodes, get all nodes of specified name or tag. 
     "dojo/_base/event", //Handle DOM Events
     "xstyle/css!./WidgetTemplate.css", //Widget CSS
     "xstyle/css!./leaflet/leaflet.css", //Leaflet CSS
     "openmapseditor/leaflet/leaflet" //Load the local Leaflet script.   
-], function (_ValueRequiredMixin, on, declare, _Widget, _TemplatedMixin, _Template, proj4, query) {
+], function (_ValueRequiredMixin, on, declare, _Widget, _TemplatedMixin, _Template, query) {
 
     return declare("openmapseditor.LeafletWidget", [_ValueRequiredMixin, _Widget, _TemplatedMixin], {
 
