@@ -3,8 +3,8 @@ Editor for setting coordinates in Optimizely CMS through map of choice with Leaf
 The editor uses OpenStreetMap by default. 
 
 # Pictures
-<img src="https://github.com/iKingCold/optimizely-maps-editor/blob/main/Pictures/Lantmateriet-AutoComplete-1.png" width="400">
-<img src="https://github.com/iKingCold/optimizely-maps-editor/blob/main/Pictures/OSM-AutoComplete-1.png" width="400">
+<img src="https://github.com/iKingCold/optimizely-maps-editor/blob/main/Pictures/Lantmateriet-AutoComplete-1.png" width="350">
+<img src="https://github.com/iKingCold/optimizely-maps-editor/blob/main/Pictures/OSM-AutoComplete-1.png" width="350">
 
 ## Summary
 The solution consists of 4 different projects.<br/>
