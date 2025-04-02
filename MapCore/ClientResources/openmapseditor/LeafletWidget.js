@@ -137,9 +137,6 @@ define([
 
             //Received results, create a list item for each result.
             results.forEach(result => {
-
-                console.log(result);
-
                 if (result.propertyNumber) { result.address += " " + result.propertyNumber };
 
                 //Photon/OSM autocomplete frequently returns results for other cities, fix by compairing result city & prefix. 
@@ -192,6 +189,8 @@ define([
         },
 
         _searchAddress: function (address) {
+            this.searchbox.value = this._removePrefix(address);
+
             //Calls the SearchAddress API.
             //The encode URI - component makes sure the url isn't broken with special characters or blank spaces, etc.
             fetch(`${this.baseUrl}/SearchAddress?address=${encodeURIComponent(address)}`)
@@ -205,10 +204,7 @@ define([
                 .then(data => {
                     if (data != null) {
                         this.resultDropdown.classList.add("hidden"); //Remove dropdown
-                        const lng = data[0].lon;
-                        const lat = data[0].lat;
-
-                        this.set("value", { latitude: lat, longitude: lng });
+                        this.set("value", { latitude: data.latitude, longitude: data.longitude });
                     } 
                 }, (error) => {
                     console.error("Error with api-call: ", error);
@@ -289,7 +285,7 @@ define([
                 }).setView([this.defaultLatitude, this.defaultLongitude], this.defaultZoom);
 
                 L.tileLayer(`${this.baseUrl}/GetTileImage?z={z}&y={y}&x={x}`, {
-                    attribution: '&copy; OpenStreetMap',
+                    attribution: `&copy; ${this.mapProviderName}`,
                     maxZoom: this.maxZoom,
                     minZoom: this.minZoom
                 }).addTo(this.map);

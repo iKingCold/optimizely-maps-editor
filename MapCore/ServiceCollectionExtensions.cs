@@ -29,6 +29,7 @@ namespace OpenMapsEditor
         public static int DefaultZoom { get; set; }
         public static int MaxZoom { get; set; }
         public static int MinZoom { get; set; }
+        public static string? MapProviderName { get; set; }
 
         public const string Plugin = "MapCore";
 
@@ -49,6 +50,7 @@ namespace OpenMapsEditor
         /// <param name="defaultLatitude">Default latitude coordinate when no property value is set.</param>
         /// <param name="maxZoom">Maximum zoom restriction for the map</param>
         /// <param name="minZoom">Minimum zoom restriction for the map</param>
+        /// <param name="mapProviderName">Name of the map provider will be displayed in the bottom right of the map</param>
         /// <param name="services"></param>
         public static IServiceCollection AddOpenMapsEditor(this IServiceCollection services, MapSettings mapSettings)
         {
@@ -66,6 +68,7 @@ namespace OpenMapsEditor
             DefaultZoom = mapSettings.DefaultZoom;
             MaxZoom = mapSettings.MaxZoom;
             MinZoom = mapSettings.MinZoom;
+            MapProviderName = mapSettings.MapProviderName;
 
             services.Configure<ProtectedModuleOptions>(
                     pm =>

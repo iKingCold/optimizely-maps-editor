@@ -16,6 +16,7 @@ namespace OpenMapsEditor
         public int DefaultZoom { get; set; } = ServiceCollectionExtensions.DefaultZoom;
         public int MaxZoom { get; set; } = ServiceCollectionExtensions.MaxZoom;
         public int MinZoom { get; set; } = ServiceCollectionExtensions.MinZoom;
+        public string? MapProviderName { get; set; } = ServiceCollectionExtensions.MapProviderName;
 
         public override void ModifyMetadata(ExtendedMetadata metadata, IEnumerable<Attribute> attributes)
         {
@@ -28,6 +29,8 @@ namespace OpenMapsEditor
             metadata.EditorConfiguration.Add("defaultZoom", DefaultZoom);
             metadata.EditorConfiguration.Add("maxZoom", MaxZoom);
             metadata.EditorConfiguration.Add("minZoom", MinZoom);
+            metadata.EditorConfiguration.Add("mapProviderName", MapProviderName);
+
 
             base.ModifyMetadata(metadata, attributes);
         }

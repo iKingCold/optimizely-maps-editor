@@ -16,5 +16,6 @@ namespace MapCore.Models
         public int DefaultZoom { get; set; }
         public int MaxZoom { get; set; }
         public int MinZoom { get; set; }
+        public string MapProviderName { get; set; }
     }
 }
