@@ -98,6 +98,12 @@ namespace MapDemo.Controllers
 
                     var searchJson = await searchResponse.Content.ReadAsStringAsync();
                     var results = await _mapProvider.ParseAutoCompleteResults(searchJson);
+
+                    if (results == null)
+                    {
+                        return NoContent();
+                    }
+
                     return Ok(results);
                 }
                 catch (Exception ex)
@@ -116,7 +122,7 @@ namespace MapDemo.Controllers
                 return BadRequest("Enter something to search...");
             }
 
-            var searchUrl = $"{_settings.ApiSearchUrl}?{_mapProvider.GetSearchParamName()}={address}&{_mapProvider.GetLimitParamName()}=1";
+            var searchUrl = $"{_settings.ApiSearchUrl}?{_mapProvider.GetSearchParamName()}={address}&{_mapProvider.GetLimitParamName()}=1&{_mapProvider.GetAdditionalParams()}";
 
             using (var httpClient = new HttpClient())
             {
@@ -142,19 +148,14 @@ namespace MapDemo.Controllers
                     }
 
                     var searchJson = await searchResponse.Content.ReadAsStringAsync();
-                    var results = await _mapProvider.ParseSearchResult(searchJson);
+                    var result = await _mapProvider.ParseSearchResult(searchJson);
 
-                    var longitude = (double)coordinatesResult.features[0].geometry.coordinates[0];
-                    var latitude = (double)coordinatesResult.features[0].geometry.coordinates[1];
-
-                    return Ok(new
+                    if(result == null)
                     {
-                        CoordinatesData = new
-                        {
-                            longitude,
-                            latitude
-                        }
-                    });
+                        return NoContent();
+                    }
+
+                    return Ok(result);
                 }
                 catch (Exception ex)
                 {

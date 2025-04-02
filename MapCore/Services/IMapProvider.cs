@@ -9,9 +9,10 @@ namespace MapCore.Services
         string GetTileUrl(int z, int y, int x);
         string GetSearchParamName();
         string GetLimitParamName();
+        string GetAdditionalParams();
         bool RequiresAuthentication { get; }
         string GetAuthenticationHeader();
-        Task<IEnumerable<AutoCompleteResult>> ParseAutoCompleteResults(string jsonResponse);
-        Task<SearchResult> ParseSearchResult(string jsonResponse);
+        Task<IEnumerable<AutoCompleteResult>?> ParseAutoCompleteResults(string jsonResponse);
+        Task<SearchResult?> ParseSearchResult(string jsonResponse);
     }
 } 
