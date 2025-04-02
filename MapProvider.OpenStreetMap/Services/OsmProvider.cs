@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace MapProvider.OpenStreetMap.Services
 {
@@ -40,10 +41,27 @@ namespace MapProvider.OpenStreetMap.Services
             return "limit";
         }
 
-        public async Task<IEnumerable<AutoCompleteResult>> ParseAutoCompleteResults(string jsonResponse)
+        public string GetAdditionalParams()
         {
-            var osmResponse = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
-            var features = ((JArray)osmResponse.features).ToObject<List<dynamic>>();
+            return "format=jsonv2";
+        }
+
+        public async Task<IEnumerable<AutoCompleteResult>?> ParseAutoCompleteResults(string jsonResponse)
+        {
+            var addresses = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+
+            if(addresses == null)
+            {
+                return null;
+            }
+
+            var features = ((JArray)addresses.features).ToObject<List<dynamic>>();
+
+            if(features == null || features.Count == 0)
+            {
+                return null;
+            }
+
             return features.Select(feature => new AutoCompleteResult
             {
                 Address = feature.properties.street ?? feature.properties.name,
@@ -54,10 +72,23 @@ namespace MapProvider.OpenStreetMap.Services
             });
         }
 
-        public async Task<SearchResult> ParseSearchResult(string searchJson)
+        public async Task<SearchResult?> ParseSearchResult(string searchJson)
         {
             //Probably just have to return coordinates, double check this
-            return new SearchResult { Longitude = 0, Latitude = 0 };
+            var results = JsonConvert.DeserializeObject<List<dynamic>>(searchJson);
+
+            if (results == null || results.Count == 0)
+            {
+                return null;
+            }
+
+            var searchResult = results[0];
+
+            return new SearchResult
+            {
+                Longitude = searchResult.lon,
+                Latitude = searchResult.lat
+            };
         }
     }
 }

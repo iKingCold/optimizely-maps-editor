@@ -9,7 +9,8 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using MightyLittleGeodesy.Positions;
 using System.Net.Http;
-using EPiServer.Async;
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
 
 namespace MapProvider.Lantmateriet.Services
 {
@@ -44,9 +45,20 @@ namespace MapProvider.Lantmateriet.Services
         {
             return "maxHits";
         }
-        public async Task<IEnumerable<AutoCompleteResult>> ParseAutoCompleteResults(string jsonResponse)
+
+        public string GetAdditionalParams()
+        {
+            return string.Empty;
+        }
+
+        public async Task<IEnumerable<AutoCompleteResult>?> ParseAutoCompleteResults(string jsonResponse)
         {
             var addresses = JsonConvert.DeserializeObject<List<string>>(jsonResponse);
+
+            if (addresses == null || addresses.Count == 0)
+            {
+                return null;
+            }
 
             return addresses.Select(address => new AutoCompleteResult
             {
@@ -54,15 +66,14 @@ namespace MapProvider.Lantmateriet.Services
             });
         }
 
-        public async Task<SearchResult> ParseSearchResult(string searchJson)
+        public async Task<SearchResult?> ParseSearchResult(string searchJson)
         {
             //Implement SWEREF99 TO WGS84 conversion, then we may remove proj4 from leaflet-widget.
             var results = JsonConvert.DeserializeObject<List<dynamic>>(searchJson);
-            Console.WriteLine(results);
 
-            if (results?.Count <= 0)
+            if (results == null || results.Count == 0)
             {
-                //No results found, return empty.
+                return null;
             }
 
             var searchResult = results[0];
@@ -70,32 +81,36 @@ namespace MapProvider.Lantmateriet.Services
 
             if (string.IsNullOrEmpty(id))
             {
-                //No id found, return empty.
+                return null;
             }
 
             var coordinatesUrl = $"https://api.lantmateriet.se/distribution/produkter/belagenhetsadress/v4.2/{id}?includeData=basinformation";
             using (var httpClient = new HttpClient())
-            { 
+            {
+                var authHeader = GetAuthenticationHeader();
+                var parts = authHeader.Split(' ');
+                if (parts.Length == 2) //First part is authType, second is authToken
+                {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(parts[0], parts[1]);
+                }
+
                 var coordinatesResponse = await httpClient.GetAsync(coordinatesUrl);
                 if (!coordinatesResponse.IsSuccessStatusCode)
                 {
-
-                    //Return error message
-                    //return StatusCode((int)coordinatesResponse.StatusCode, $"API-call failed: {coordinatesResponse.ReasonPhrase}");
+                    return null;
                 }
 
                 var coordinatesJson = await coordinatesResponse.Content.ReadAsStringAsync();
                 var coordinatesResult = JsonConvert.DeserializeObject<dynamic>(coordinatesJson);
 
                 var swePos = new SWEREF99Position(
-                    (double)coordinatesResult.features[0].geometry.coordinates[0],
-                    (double)coordinatesResult.features[0].geometry.coordinates[1]
+                    (double)coordinatesResult.features[0].geometry.coordinates[1],
+                    (double)coordinatesResult.features[0].geometry.coordinates[0]
                     );
 
                 var wgsPos = swePos.ToWGS84();
+                return new SearchResult { Longitude = wgsPos.Longitude,  Latitude = wgsPos.Latitude };
             }
-
-            return new SearchResult { Longitude = 0, Latitude = 0 };
         }
     }
 }
