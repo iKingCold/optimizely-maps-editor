@@ -3,10 +3,10 @@ Editor for setting coordinates in Optimizely CMS through map of choice with Leaf
 The editor uses OpenStreetMap by default. 
 
 ## Summary
-The solution consists of 4 different projects.
+The solution consists of 4 different projects.<br/>
 `MapCore` contains the Core Map files required to render the Leaflet map.<br/>
-`MapProvider.*provider*` contains a ProviderService that implements provider-specific settings.
-`MapDemo` contains a demo website for testing the Map Editor.
+`MapProvider.*provider*` contains a ProviderService that implements provider-specific settings.<br/>
+`MapDemo` contains a demo website for testing the Map Editor.<br/>
 
 The project has been tested with **Optimizely Alloy**, **Optimizely Decoupled MusicFestival** & **Optimizely Empty Project**.
 MusicFestival is a sample project that uses the Content Delivery API in a headless CMS structure. https://github.com/episerver/musicfestival-vue-template
