@@ -1,25 +1,18 @@
-## UNDER CONSTRUCTION
-THIS REPO IS CURRENTLY UNDERGOING REFACTORING, README IS NOT ACCURATE AND PROJECT IS CHANGING RAPIDLY!
-
-# Switch MapProvider (Will change in the near future): 
-1. Scope the desired MapProvider in MapDemo/Startup.cs
-example: .AddScoped<IMapProvider, LantmaterietProvider>(); or .AddScoped<IMapProvider, OsmProvider>();
-2. Configure the MapSettings with desired ApiUrls in MapDemo/appsettings.json.
-
 # Open Maps Editor for Optimizely
 Editor for setting coordinates in Optimizely CMS through map of choice with Leaflet.js.<br/>
-The editor uses OpenStreetMaps by default. 
+The editor uses OpenStreetMap by default. 
 
 ## Summary
-The solution consists of two projects.
-`OpenMapsEditor` contains the Map Editor add-on / plugin.<br/>
-`DemoSite` contains a demo website for testing the Map Editor.
+The solution consists of 4 different projects.
+`MapCore` contains the Core Map files required to render the Leaflet map.<br/>
+`MapProvider.*provider*` contains a ProviderService that implements provider-specific settings.
+`MapDemo` contains a demo website for testing the Map Editor.
 
 The project has been tested with **Optimizely Alloy**, **Optimizely Decoupled MusicFestival** & **Optimizely Empty Project**.
 MusicFestival is a sample project that uses the Content Delivery API in a headless CMS structure. https://github.com/episerver/musicfestival-vue-template
 
 # Option 1. Get started through NuGet
-1. Install the `OpenMapsEditor` add-on through Nuget Package Manager to an existing Optimizely CMS project
+1. Install the desired Map Provider `OpenMapsEditor.*provider*` through Nuget Package Manager to an existing Optimizely CMS project
 1. Add Maps API Credentials & desired default values to `appsettings.json`
 1. Add the custom `MapsCoordinates` property to a page- or blocktype
 1. Start the project and browse to the Optimizely UI, default: http://localhost:8081/Util/Login
@@ -29,9 +22,14 @@ MusicFestival is a sample project that uses the Content Delivery API in a headle
 # Option 2. Get started through the repository
 1. Clone the repository
 1. Run the `create-database.bat` to create an empty database
-1. Open the solution and start the `DemoSite` project 
+1. Open the solution and start the `MapDemo` project 
 1. Create an admin user in the Optimizely UI: http://localhost:8081/Util/Login
 1. Create a new page in the Optimizely UI Edit-panel
 1. Test the OpenMapsEditor in the editor view
+
+# Switch MapProvider: 
+1. Scope the desired MapProvider in MapDemo/Startup.cs
+example: .AddScoped<IMapProvider, LantmaterietProvider>();
+2. Configure the MapSettings with desired ApiUrls in MapDemo/appsettings.json.
 
 > Note: The add-on does not include any template rendering, for example to show a map to site visitors. It only focuses on the CMS editing experience.
