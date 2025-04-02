@@ -2,7 +2,7 @@
 Editor for setting coordinates in Optimizely CMS through map of choice with Leaflet.js.<br/>
 The editor uses OpenStreetMap by default. 
 
-# Pictures
+## Pictures
 <div>
   <img src="https://github.com/iKingCold/optimizely-maps-editor/blob/main/Pictures/Lantmateriet-AutoComplete-1.png" width="400">
   <img src="https://github.com/iKingCold/optimizely-maps-editor/blob/main/Pictures/OSM-AutoComplete-1.png" width="400">
