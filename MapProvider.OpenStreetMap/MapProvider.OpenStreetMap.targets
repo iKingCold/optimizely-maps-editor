@@ -3,7 +3,7 @@
 
 	<!-- Zip & copy 'ZipFiles' into modules/_protected -->
 
-	<ItemGroup>
+	<!--<ItemGroup>
 		<ZipFiles Include="$(MSBuildThisFileDirectory)..\..\contentFiles\any\any\modules\_protected\**\*.zip" />
 	</ItemGroup>
 
@@ -12,6 +12,6 @@
             SourceFiles="@(ZipFiles)"
             DestinationFolder="$(MSBuildProjectDirectory)\modules\_protected\%(RecursiveDir)"
         />
-	</Target>
+	</Target>-->
 
 </Project>

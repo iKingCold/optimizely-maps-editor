@@ -9,7 +9,7 @@
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<FileVersion>1.0.0.11-alpha</FileVersion>
 		<InformationalVersion>Optimizely CMS 12</InformationalVersion>
-		<Title>Open Maps Editor for Optimizely</Title>
+		<Title>OpenStreetMap for Editor Map Widget</Title>
 		<Description>A flexible editor map widget for Optimizely CMS with support for different map APIs such as OpenStreetMaps &amp; The Swedish national land survey (Lantmäteriet).</Description>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 		<Nullable>enable</Nullable>
@@ -30,6 +30,7 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<PackageTags>maps;coordinates;api;leaflet;optimizely</PackageTags>
+		<RepositoryUrl>https://github.com/iKingCold/optimizely-maps-editor/</RepositoryUrl>
 	</PropertyGroup>
 
 	<!-- Build NuGet package for release builds -->
@@ -46,14 +47,6 @@
 		</ItemGroup>
 		<Delete Files="@(NuGetPackageFiles)" />
 	</Target>
-
-	<ItemGroup>
-		<None Include="BuildAddonZipFile.proj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\MapCore\MapCore.csproj" />
-	</ItemGroup>
 
 	<!-- Include the license, readme files, and build targets in the NuGet package -->
 	<ItemGroup>
@@ -73,5 +66,8 @@
 			<Pack>True</Pack>
 			<PackagePath>build\net8.0</PackagePath>
 		</None>-->
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\MapCore\MapCore.csproj" />
 	</ItemGroup>
 </Project>

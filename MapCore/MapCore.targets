@@ -13,5 +13,4 @@
             DestinationFolder="$(MSBuildProjectDirectory)\modules\_protected\%(RecursiveDir)"
         />
 	</Target>
-
 </Project>

@@ -48,10 +48,6 @@
 	</Target>
 
 	<ItemGroup>
-		<None Include="BuildAddonZipFile.proj" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\MapCore\MapCore.csproj" />
 	</ItemGroup>
 

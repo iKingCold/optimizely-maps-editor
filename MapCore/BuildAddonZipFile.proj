@@ -3,7 +3,7 @@
 
 	<!-- Variables used in the MSBuild scripts -->
 	<PropertyGroup>
-		<PluginName>MapProvider.OpenStreetMaps</PluginName>
+		<PluginName>OpenMapsEditor</PluginName>
 		<SolutionDir Condition="$(SolutionDir) == ''">$(MSBuildProjectDirectory)..\</SolutionDir>
 		<TmpOutDir>$(ProjectDir)bin\addon</TmpOutDir>
 		<BinDir>$(ProjectDir)bin</BinDir>
@@ -42,7 +42,7 @@
 	<ItemGroup>
 		<None Include="$(SolutionDir)\tmp\$(PluginName).zip">
 			<Pack>True</Pack>
-			<PackagePath>contentFiles\any\any\modules\_protected\MapProvider.OpenStreetMaps</PackagePath>
+			<PackagePath>contentFiles\any\any\modules\_protected\OpenMapsEditor</PackagePath>
 			<Visible>False</Visible>
 			<PackageCopyToOutput>true</PackageCopyToOutput>
 		</None>
