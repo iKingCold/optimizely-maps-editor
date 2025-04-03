@@ -2,6 +2,12 @@
 Editor for setting coordinates in Optimizely CMS through map of choice with Leaflet.js.<br/>
 The editor uses OpenStreetMap by default. 
 
+## Pictures
+<div>
+  <img src="https://github.com/iKingCold/optimizely-maps-editor/blob/main/Pictures/Lantmateriet-AutoComplete-1.png" width="400">
+  <img src="https://github.com/iKingCold/optimizely-maps-editor/blob/main/Pictures/OSM-AutoComplete-1.png" width="400">
+</div>
+
 ## Summary
 The solution consists of 4 different projects.<br/>
 `MapCore` contains the Core Map files required to render the Leaflet map.<br/>
@@ -28,7 +34,7 @@ MusicFestival is a sample project that uses the Content Delivery API in a headle
 1. Test the OpenMapsEditor in the editor view
 
 # Switch MapProvider: 
-1. Scope the desired MapProvider in MapDemo/Startup.cs
+1. Scope the desired MapProvider in MapDemo/Startup.cs <br/>
 example: .AddScoped<IMapProvider, LantmaterietProvider>();
 2. Configure the MapSettings with desired ApiUrls in MapDemo/appsettings.json.
 
