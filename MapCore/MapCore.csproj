@@ -7,7 +7,7 @@
 		<ImplicitUsings>disable</ImplicitUsings>
 		<OutputType>Library</OutputType>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<FileVersion>1.0.0.11-alpha</FileVersion>
+		<FileVersion>1.0.0.14-alpha</FileVersion>
 		<InformationalVersion>Optimizely CMS 12</InformationalVersion>
 		<Title>Open Maps Editor for Optimizely</Title>
 		<Description>A flexible editor map widget for Optimizely CMS with support for different map APIs such as OpenStreetMaps &amp; The Swedish national land survey (Lantmäteriet).</Description>
@@ -46,17 +46,9 @@
 		</ItemGroup>
 		<Delete Files="@(NuGetPackageFiles)" />
 	</Target>
-	<ItemGroup>
-	  <None Remove="C:\Users\axel_\.nuget\packages\episerver.cms.tinymce\4.8.0\contentFiles\any\any\modules\_protected\EPiServer.Cms.TinyMce\EPiServer.Cms.TinyMce.zip" />
-	  <None Remove="C:\Users\axel_\.nuget\packages\episerver.cms.ui.admin\12.31.2\contentFiles\any\any\modules\_protected\EPiServer.Cms.UI.Admin\EPiServer.Cms.UI.Admin.zip" />
-	  <None Remove="C:\Users\axel_\.nuget\packages\episerver.cms.ui.settings\12.31.2\contentFiles\any\any\modules\_protected\EPiServer.Cms.UI.Settings\EPiServer.Cms.UI.Settings.zip" />
-	  <None Remove="C:\Users\axel_\.nuget\packages\episerver.cms.ui.visitorgroups\12.31.2\contentFiles\any\any\modules\_protected\EPiServer.Cms.UI.VisitorGroups\EPiServer.Cms.UI.VisitorGroups.zip" />
-	  <None Remove="C:\Users\axel_\.nuget\packages\episerver.cms.ui\12.31.2\contentFiles\any\any\modules\_protected\CMS\CMS.zip" />
-	  <None Remove="C:\Users\axel_\.nuget\packages\episerver.cms.ui\12.31.2\contentFiles\any\any\modules\_protected\Shell\Shell.zip" />
-	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EPiServer.CMS" Version="[12.31.2,13)" />
+		<PackageReference Include="EPiServer.CMS" Version="[12.10.0, 13)" />
 	</ItemGroup>
 
 	<!-- Include the license, readme files, and build targets in the NuGet package -->

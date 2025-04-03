@@ -12,7 +12,7 @@ using OpenMapsEditor;
 using System.Diagnostics;
 using MapCore.Services;
 using MapProvider.Lantmateriet.Services;
-using MapProvider.OpenStreetMap.Services;
+//using MapProvider.OpenStreetMap.Services;
 
 namespace MapDemo
 {

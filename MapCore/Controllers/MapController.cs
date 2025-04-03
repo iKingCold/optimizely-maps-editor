@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MapCore.Models;
 using MapCore.Services;
-using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Web;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System;
 
-namespace MapDemo.Controllers
+namespace MapCore.Controllers
 {
     public class MapController : Controller
     {
@@ -136,7 +138,7 @@ namespace MapDemo.Controllers
                         var parts = authHeader.Split(' ');
                         if (parts.Length == 2) //First part is authType, second is authToken
                         {
-                            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(parts[0], parts[1]); 
+                            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(parts[0], parts[1]);
                         }
                     }
 
@@ -150,7 +152,7 @@ namespace MapDemo.Controllers
                     var searchJson = await searchResponse.Content.ReadAsStringAsync();
                     var result = await _mapProvider.ParseSearchResult(searchJson);
 
-                    if(result == null)
+                    if (result == null)
                     {
                         return NoContent();
                     }
