@@ -3,9 +3,8 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using EPiServer.Shell.Modules;
 using MapCore.Models;
-using Microsoft.IdentityModel.Tokens;
 
-namespace OpenMapsEditor
+namespace MapCore
 {
     /// <summary>
     /// Provides extension method for adding a flexible maps editor to an Optimizely website.

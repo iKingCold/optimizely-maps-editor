@@ -5,7 +5,7 @@
     <TargetFrameworks>net6.0</TargetFrameworks>
 		<Product>$(Title)</Product>
 		<PackageDescription>$(Description)</PackageDescription>
-    <FileVersion>1.0.0.1-preview</FileVersion>
+    <FileVersion>1.0.0.4-preview</FileVersion>
     <Version>$(FileVersion)</Version>
 		<PackageVersion>$(FileVersion)</PackageVersion>
     <!-- Append "-name-of-pre-release" to build prerelease version of packages, e.g. "$(FileVersion)-newfeature" -->
@@ -17,6 +17,7 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<PackageTags>maps;coordinates;api;leaflet;optimizely</PackageTags>
+    <RepositoryUrl>https://github.com/iKingCold/optimizely-maps-editor/</RepositoryUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageOutputPath>bin\Release</PackageOutputPath>
 	</PropertyGroup>

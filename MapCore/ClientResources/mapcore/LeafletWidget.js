@@ -9,10 +9,10 @@ define([
     "dojo/_base/event", //Handle DOM Events
     "xstyle/css!./WidgetTemplate.css", //Widget CSS
     "xstyle/css!./leaflet/leaflet.css", //Leaflet CSS
-    "openmapseditor/leaflet/leaflet" //Load the local Leaflet script.   
+    "mapcore/leaflet/leaflet" //Load the local Leaflet script.   
 ], function (_ValueRequiredMixin, on, declare, _Widget, _TemplatedMixin, _Template, query) {
 
-    return declare("openmapseditor.LeafletWidget", [_ValueRequiredMixin, _Widget, _TemplatedMixin], {
+    return declare("mapcore.LeafletWidget", [_ValueRequiredMixin, _Widget, _TemplatedMixin], {
 
         templateString: _Template, //HtmlTemplate in the Leaflet folder.
         intermediateChanges: true,

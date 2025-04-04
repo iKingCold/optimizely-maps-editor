@@ -11,7 +11,7 @@ IF %ERRORLEVEL% NEQ 0 (
 echo ============================================
 
 echo Creating the CMS database...
-dotnet-episerver create-cms-database "DemoSite\DemoSite.csproj" -S "(LocalDb)\MSSQLLocalDB" -E -dn "OpenMapsEditorDB" -du "OpenMapsEditorUser" -dp "Qwerty123!"
+dotnet-episerver create-cms-database "MapDemo\MapDemo.csproj" -S "(LocalDb)\MSSQLLocalDB" -E -dn "OpenMapsEditorDB" -du "OpenMapsEditorUser" -dp "Qwerty123!"
 IF %ERRORLEVEL% NEQ 0 (
     echo Failed to create the CMS database. Please check your parameters or database setup.
     exit /b 1

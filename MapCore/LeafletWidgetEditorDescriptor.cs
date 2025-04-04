@@ -4,7 +4,7 @@ using EPiServer.Shell.ObjectEditing;
 using EPiServer.Shell.ObjectEditing.EditorDescriptors;
 using MapCore.Models;
 
-namespace OpenMapsEditor
+namespace MapCore
 {
     [EditorDescriptorRegistration(TargetType = typeof(MapsCoordinates), EditorDescriptorBehavior = EditorDescriptorBehavior.Default)]
     public class LeafletWidgetEditorDescriptor : EditorDescriptor
@@ -20,7 +20,7 @@ namespace OpenMapsEditor
 
         public override void ModifyMetadata(ExtendedMetadata metadata, IEnumerable<Attribute> attributes)
         {
-            ClientEditingClass = "openmapseditor/LeafletWidget";
+            ClientEditingClass = "mapcore/LeafletWidget";
 
             metadata.EditorConfiguration.Add("baseUrl", BaseUrl);
             metadata.EditorConfiguration.Add("searchPrefix", SearchPrefix);
