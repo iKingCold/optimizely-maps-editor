@@ -7,7 +7,7 @@
     <SourceScripts Include="$(MSBuildThisFileDirectory)..\..\contentFiles\any\any\modules\_protected\**\*.zip"/>
   </ItemGroup>
 
-  <Target Name="CopyToGoogleMapsEditorModuleFolder" BeforeTargets="Build">
+  <Target Name="CopyZipToTargetProject" AfterTargets="Build">
     <Copy
             SourceFiles="@(SourceScripts)"
             DestinationFolder="$(MSBuildProjectDirectory)\modules\_protected\%(RecursiveDir)"

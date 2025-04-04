@@ -3,15 +3,16 @@
 
 	<!-- Zip & copy 'ZipFiles' into modules/_protected -->
 
-	<ItemGroup>
-		<ZipFiles Include="$(MSBuildThisFileDirectory)..\..\contentFiles\any\any\modules\_protected\**\*.zip" />
-	</ItemGroup>
+  <Target Name="CopyMapCoreZips" AfterTargets="Build">
+    <ItemGroup>
+      <MapCoreZips Include="$(NuGetPackageRoot)mapcore\1.0.0.22-alpha\contentFiles\any\any\modules\_protected\**\*.zip" />
+    </ItemGroup>
 
-	<Target Name="Zip" BeforeTargets="Build">
-		<Copy
-            SourceFiles="@(ZipFiles)"
-            DestinationFolder="$(MSBuildProjectDirectory)\modules\_protected\%(RecursiveDir)"
-        />
-	</Target>
+    <Message Text="Copying MapCore zips from transitive dependency..." Importance="high" />
+
+    <Copy
+      SourceFiles="@(MapCoreZips)"
+      DestinationFolder="$(MSBuildProjectDirectory)\modules\_protected\%(RecursiveDir)" />
+  </Target>
 
 </Project>
