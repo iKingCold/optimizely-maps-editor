@@ -5,7 +5,7 @@
     <TargetFrameworks>net6.0</TargetFrameworks>
 		<Product>$(Title)</Product>
 		<PackageDescription>$(Description)</PackageDescription>
-    <FileVersion>1.0.0.11-preview</FileVersion>
+    <FileVersion>1.0.0.13-preview</FileVersion>
     <Version>$(FileVersion)</Version>
 		<PackageVersion>$(FileVersion)</PackageVersion>
     <!-- Append "-name-of-pre-release" to build prerelease version of packages, e.g. "$(FileVersion)-newfeature" -->
@@ -32,9 +32,9 @@
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
-    <None Include="MapProvider.Lantmateriet.targets">
+    <None Include="buildTransitive\MapProvider.Lantmateriet.props">
       <Pack>True</Pack>
-      <PackagePath>build\net6.0</PackagePath>
+      <PackagePath>buildTransitive\net6.0</PackagePath>
     </None>
 	</ItemGroup>
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"> <!-- Technically this is not required as of VS2017 -->
+
+  <!-- Adds MapCore as a direct dependency to the consuming project -->
+
+  <ItemGroup>
+    <PackageReference Include="MapCore" Version="1.0.0.22-alpha" />
+  </ItemGroup>
+
+</Project>

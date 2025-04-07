@@ -38,7 +38,7 @@ namespace MapDemo
 
                 services.Configure<CompositeFileProviderOptions>(c =>
                 {
-                    c.BasePathFileProviders.Add(new MappingPhysicalFileProvider($"/EPiServer/{MapCore.ServiceCollectionExtensions.Plugin}", string.Empty, Path.Combine(uiSolutionFolder, OpenMapsEditor.ServiceCollectionExtensions.Plugin)));
+                    c.BasePathFileProviders.Add(new MappingPhysicalFileProvider($"/EPiServer/{MapCore.ServiceCollectionExtensions.Plugin}", string.Empty, Path.Combine(uiSolutionFolder, MapCore.ServiceCollectionExtensions.Plugin)));
                 });
 
                 services.Configure<SchedulerOptions>(options => options.Enabled = false)
@@ -49,7 +49,7 @@ namespace MapDemo
 
             services
                 .AddCmsAspNetIdentity<ApplicationUser>()
-                .AddCms()
+                .AddCms() 
                 .AddAdminUserRegistration()
                 .AddEmbeddedLocalization<Startup>()
                 .Configure<MapSettings>(_configuration.GetSection("MapSettings")) //Populate MapSettings from appsettings.json
