@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
 
 namespace MapProvider.OpenStreetMap.Services
 {
@@ -74,7 +73,6 @@ namespace MapProvider.OpenStreetMap.Services
 
         public async Task<SearchResult?> ParseSearchResult(string searchJson)
         {
-            //Probably just have to return coordinates, double check this
             var results = JsonConvert.DeserializeObject<List<dynamic>>(searchJson);
 
             if (results == null || results.Count == 0)

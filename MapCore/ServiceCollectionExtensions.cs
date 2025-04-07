@@ -51,7 +51,7 @@ namespace MapCore
         /// <param name="minZoom">Minimum zoom restriction for the map</param>
         /// <param name="mapProviderName">Name of the map provider will be displayed in the bottom right of the map</param>
         /// <param name="services"></param>
-        public static IServiceCollection AddOpenMapsEditor(this IServiceCollection services, MapSettings mapSettings)
+        public static IServiceCollection AddEditorMapCore(this IServiceCollection services, MapSettings mapSettings)
         {
             BaseUrl = mapSettings.BaseUrl;
             ApiTileUrl = mapSettings.ApiTileUrl;

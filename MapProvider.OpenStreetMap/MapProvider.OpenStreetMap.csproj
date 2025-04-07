@@ -5,7 +5,7 @@
     <TargetFrameworks>net6.0</TargetFrameworks>
 		<Product>$(Title)</Product>
 		<PackageDescription>$(Description)</PackageDescription>
-    <FileVersion>1.0.0.13-preview</FileVersion>
+    <FileVersion>1.0.0.16-preview</FileVersion>
 		<Version>$(FileVersion)</Version>
 		<PackageVersion>$(FileVersion)</PackageVersion>
     <!-- Append "-name-of-pre-release" to build prerelease version of packages, e.g. "$(FileVersion)-newfeature" -->
@@ -38,7 +38,7 @@
     </None>
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="MapCore" Version="1.0.0.22-alpha" />
+	  <PackageReference Include="MapCore" Version="1.0.0.23-alpha" />
 	</ItemGroup>
   
 </Project>

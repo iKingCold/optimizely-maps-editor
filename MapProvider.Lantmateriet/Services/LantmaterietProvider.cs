@@ -10,7 +10,6 @@ using Newtonsoft.Json;
 using MightyLittleGeodesy.Positions;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Http;
 
 namespace MapProvider.Lantmateriet.Services
 {
@@ -68,7 +67,6 @@ namespace MapProvider.Lantmateriet.Services
 
         public async Task<SearchResult?> ParseSearchResult(string searchJson)
         {
-            //Implement SWEREF99 TO WGS84 conversion, then we may remove proj4 from leaflet-widget.
             var results = JsonConvert.DeserializeObject<List<dynamic>>(searchJson);
 
             if (results == null || results.Count == 0)

@@ -6,20 +6,15 @@ using EPiServer.Scheduler;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Hosting;
 using EPiServer.Web.Routing;
-using Microsoft.Extensions.Options;
-using MapCore.Models;
-using MapCore;
 using System.Diagnostics;
-using MapCore.Services;
 using MapProvider.Lantmateriet.Services;
-//using MapProvider.OpenStreetMap.Services;
 
 namespace MapDemo
 {
     public class Startup
     {
         private readonly IWebHostEnvironment _webHostingEnvironment;
-        private readonly IConfiguration _configuration; //Used to read and populate from appsettings
+        private readonly IConfiguration _configuration;
 
         public Startup(IWebHostEnvironment webHostingEnvironment, IConfiguration configuration)
         {
@@ -49,16 +44,12 @@ namespace MapDemo
 
             services
                 .AddCmsAspNetIdentity<ApplicationUser>()
-                .AddCms() 
+                .AddCms()
                 .AddAdminUserRegistration()
-                .AddEmbeddedLocalization<Startup>()
-                .Configure<MapSettings>(_configuration.GetSection("MapSettings")) //Populate MapSettings from appsettings.json
-                .AddSingleton(sp => sp.GetRequiredService<IOptions<MapSettings>>().Value) //Scope the MapSettings-service
-                .AddScoped<IMapProvider, LantmaterietProvider>();
+                .AddEmbeddedLocalization<Startup>();
 
-            var mapSettings = _configuration.GetSection("MapSettings").Get<MapSettings>();
-
-            services.AddOpenMapsEditor(mapSettings);
+            services.AddEditorMapWidget(_configuration);
+            //Maybe reconsider how this should work, might want the user to override the settings in the appsettings.json or configure through pipeline?
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
