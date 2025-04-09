@@ -7,6 +7,7 @@ using MapCore.Models;
 namespace MapCore
 {
     [EditorDescriptorRegistration(TargetType = typeof(MapsCoordinates), EditorDescriptorBehavior = EditorDescriptorBehavior.Default)]
+    [EditorDescriptorRegistration(TargetType = typeof(RequiredMapsCoordinates), EditorDescriptorBehavior = EditorDescriptorBehavior.Default)]
     public class LeafletWidgetEditorDescriptor : EditorDescriptor
     {
         public string? BaseUrl { get; set; } = ServiceCollectionExtensions.BaseUrl;

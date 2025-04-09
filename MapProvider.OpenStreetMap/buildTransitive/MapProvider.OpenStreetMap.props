@@ -4,7 +4,7 @@
   <!-- Adds MapCore as a direct dependency to the consuming project -->
 
   <ItemGroup>
-    <PackageReference Include="MapCore" Version="1.0.0.23-alpha" />
+    <PackageReference Include="MapCore" Version="1.0.0.24-alpha" />
   </ItemGroup>
 
 </Project>

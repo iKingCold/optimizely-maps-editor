@@ -5,7 +5,7 @@
     <TargetFrameworks>net6.0</TargetFrameworks>
 		<Product>$(Title)</Product>
 		<PackageDescription>$(Description)</PackageDescription>
-    <FileVersion>1.0.0.16-preview</FileVersion>
+    <FileVersion>1.0.0.17-preview</FileVersion>
     <Version>$(FileVersion)</Version>
 		<PackageVersion>$(FileVersion)</PackageVersion>
     <!-- Append "-name-of-pre-release" to build prerelease version of packages, e.g. "$(FileVersion)-newfeature" -->
@@ -39,8 +39,11 @@
 	</ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="MapCore" Version="1.0.0.23-alpha" />
 	  <PackageReference Include="MightyLittleGeodesy" Version="1.0.2" />
 	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MapCore\MapCore.csproj" />
+  </ItemGroup>
   
 </Project>

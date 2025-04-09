@@ -18,6 +18,9 @@
   
   <ItemGroup>
     <PackageReference Include="EPiServer.CMS" Version="12.29.0" />
-    <PackageReference Include="MapProvider.Lantmateriet" Version="1.0.0.16-preview" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\MapProvider.Lantmateriet\MapProvider.Lantmateriet.csproj" />
   </ItemGroup>
 </Project>
