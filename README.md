@@ -33,9 +33,4 @@ MusicFestival is a sample project that uses the Content Delivery API in a headle
 1. Create a new page in the Optimizely UI Edit-panel
 1. Test the OpenMapsEditor in the editor view
 
-# Switch MapProvider: 
-1. Scope the desired MapProvider in MapDemo/Startup.cs <br/>
-example: .AddScoped<IMapProvider, LantmaterietProvider>();
-2. Configure the MapSettings with desired ApiUrls in MapDemo/appsettings.json.
-
 > Note: The add-on does not include any template rendering, for example to show a map to site visitors. It only focuses on the CMS editing experience.
