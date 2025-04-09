@@ -20,7 +20,7 @@ MusicFestival is a sample project that uses the Content Delivery API in a headle
 # Option 1. Get started through NuGet
 1. Install the desired Map Provider `OpenMapsEditor.*provider*` through Nuget Package Manager to an existing Optimizely CMS project
 1. Add Maps API Credentials & desired default values to `appsettings.json`
-1. Add the custom `MapsCoordinates` property to a page- or blocktype
+1. Add the custom `MapsCoordinates` or `RequiredMapsCoordinates` property to a page- or blocktype
 1. Start the project and browse to the Optimizely UI, default: http://localhost:8081/Util/Login
 1. Create a new page or block of the type that has the `MapsCoordinates` property
 1. Test the OpenMapsEditor in the editor view
