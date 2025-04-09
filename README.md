@@ -10,7 +10,7 @@ The editor uses OpenStreetMap by default.
 
 ## Summary
 The solution consists of 3 different project types.<br/>
-`MapCore` contains the Core Map files required to render the Leaflet map.<br/>
+`MapCore` contains the Core Map files required to render the Leaflet map and shared logic between providers.<br/>
 `MapProvider.*provider*` contains a ProviderService that implements provider-specific settings.<br/>
 `MapDemo` contains a demo website for testing the Map Editor.<br/>
 
