@@ -34,3 +34,6 @@ MusicFestival is a sample project that uses the Content Delivery API in a headle
 1. Test the OpenMapsEditor in the editor view
 
 > Note: The add-on does not include any template rendering, for example to show a map to site visitors. It only focuses on the CMS editing experience.
+
+# Contributing
+Thanks for your interest in contributing! There are many ways to contribute to this project. Get started [here](./CONTRIBUTING.md).
